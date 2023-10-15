@@ -9,12 +9,16 @@ import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.session.SessionManager;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockType;
+import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 
 import java.util.Random;
@@ -30,41 +34,16 @@ public class DigOrDieGame {
         DigOrDieLocation.setLocation();
         teleportInMoreLoc(locSpawnDigOrDie);
     }
-    public void setRandomBlocks(SessionManager sessionManager) {
-        EditSession.Builder editSessionBuilder = WorldEdit.getInstance().newEditSessionBuilder().session(sessionManager);
-        EditSession editSession = editSessionBuilder.build();
-        Random random = new Random();
-
-        // Границы области, в которой вы хотите установить случайные блоки
-        BlockVector3 minPoint = BlockVector3.at(-40, 62, 33);
-        BlockVector3 maxPoint = BlockVector3.at(-40, 30, 33);
-
-        try {
-            for (int x = minPoint.getX(); x <= maxPoint.getX(); x++) {
-                for (int y = minPoint.getY(); y <= maxPoint.getY(); y++) {
-                    for (int z = minPoint.getZ(); z <= maxPoint.getZ(); z++) {
-                        Material randomBlockType = getRandomBlockType(random);
-                        BlockType block = BukkitAdapter.asBlockType(randomBlockType);
-                        editSession.setBlock(BlockVector3.at(x, y, z), (Pattern) block);
-                    }
-                }
+    @EventHandler
+    public static void playerTouchBlock(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (event.getClickedBlock().getType().equals(Material.SCULK_SENSOR)){
+                PlayersScore.setPoint(player);
+                player.teleport(SpawnLocation.getLocHub());
             }
-            editSession.flushSession();
-            editSession.close();
-        } catch (WorldEditException e) {
-            e.printStackTrace();
         }
-    }
 
-    public Material getRandomBlockType(Random random) {
-        // Создайте список всех доступных блоков, из которых вы хотите случайным образом выбирать
-        Material[] blockTypes = {Material.GRASS_BLOCK, Material.STONE};
-
-        // Выберите случайный индекс из массива блоков
-        int randomIndex = random.nextInt(blockTypes.length);
-
-        // Верните выбранный случайный блок
-        return blockTypes[randomIndex];
     }
 
 }
