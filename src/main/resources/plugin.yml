@@ -2,3 +2,12 @@ name: PartyGame
 version: '${project.version}'
 main: my.cufee.partygame.PartyGame
 api-version: '1.20'
+
+commands:
+  pgjoin:
+    description: Присоедениться к игре.
+  pgcreate:
+    description: Создать игру.
+    usage: usage /pgcreate <count players>
+  pgleave:
+    description: Покинуть игру
