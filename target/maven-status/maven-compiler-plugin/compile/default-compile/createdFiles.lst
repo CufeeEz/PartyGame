@@ -3,10 +3,12 @@ my\cufee\partygame\Games\GoldRush\GoldRushLocation.class
 my\cufee\partygame\Games\GoldRush\GoldRushEvents.class
 my\cufee\partygame\CMD\GameCreate.class
 my\cufee\partygame\MainLocation\SpawnLocation.class
+my\cufee\partygame\Util\TeleportPlayers.class
 my\cufee\partygame\CMD\GameLeave.class
 my\cufee\partygame\CMD\GameJoin.class
-my\cufee\partygame\ChatUtil\ChatBroadcastMessege.class
+my\cufee\partygame\Games\GoldRush\GoldRushStartGame.class
 my\cufee\partygame\Games\PlayersArray.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieLocation.class
+my\cufee\partygame\Util\ChatBroadcastMessege.class
 my\cufee\partygame\CMD\GameDelete.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieGame.class

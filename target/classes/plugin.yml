@@ -8,6 +8,7 @@ commands:
     description: Присоедениться к игре.
   pgcreate:
     description: Создать игру.
-    usage: usage /pgcreate <count players>
   pgleave:
-    description: Покинуть игру
+    description: Покинуть игру.
+  pgdelete:
+    description: Удалить игру.

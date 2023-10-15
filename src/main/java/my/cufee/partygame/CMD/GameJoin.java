@@ -1,6 +1,7 @@
 package my.cufee.partygame.CMD;
 
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
+import my.cufee.partygame.Games.GoldRush.GoldRushStartGame;
 import my.cufee.partygame.Games.PlayersArray;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import org.bukkit.Bukkit;
@@ -27,7 +28,7 @@ public class GameJoin implements CommandExecutor {
                                 " подключился (" + PlayersArray.count + "/" + GameCreate.CreatePlayersCount + ")");
                         GamePlayer.teleport(SpawnLocation.getLocHub());
                         if (PlayersArray.count == (int) GameCreate.CreatePlayersCount) {
-                            DigOrDieGame.startDigOrDie();
+                            GoldRushStartGame.grStart();
                         }
                     }
                     else {
