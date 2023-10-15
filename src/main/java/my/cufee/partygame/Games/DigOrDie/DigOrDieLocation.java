@@ -16,9 +16,6 @@ public class DigOrDieLocation {
         locSpawnDigOrDie[5] = new Location(SpawnLocation.getWorld(), -50.5, 62.5, 57.5);
         locSpawnDigOrDie[6] = new Location(SpawnLocation.getWorld(), -54.5, 62.5, 47.5);
         locSpawnDigOrDie[7] = new Location(SpawnLocation.getWorld(), -50.5, 62.5, 37.5);
-
-
-
         return locSpawnDigOrDie;
     }
 

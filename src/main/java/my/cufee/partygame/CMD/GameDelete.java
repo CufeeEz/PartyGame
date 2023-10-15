@@ -1,6 +1,7 @@
 package my.cufee.partygame.CMD;
 
 
+import my.cufee.partygame.Games.PlayersArray;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,7 +19,7 @@ public class GameDelete implements CommandExecutor {
                 {
                     Bukkit.broadcastMessage(ChatColor.GREEN + deletingPlayer.getName() + " удалил игру!" +
                             ChatColor.YELLOW + "\nДля создания игры напишите /BFcreate");
-                    EndGame.deleteGame(PlayersCount.playersOnGame);
+
                 }
                 else {
                     commandSender.sendMessage(ChatColor.RED + "Вы не оператор!");
