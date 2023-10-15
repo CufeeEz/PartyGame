@@ -13,14 +13,10 @@ public class DigOrDieGame {
     public static void startDigOrDie(){
         Bukkit.broadcastMessage(String.valueOf(playersOnGame.length));
         DigOrDieLocation.setLocation();
-        teleportPlayers();
-    }
-    private static void teleportPlayers(){
         for (int i = 0; i < playersOnGame.length; i++)
         {
             Player teleportedPlayer = playersOnGame[i];
             teleportedPlayer.teleport(locSpawnDigOrDie[i]);
         }
     }
-
 }
