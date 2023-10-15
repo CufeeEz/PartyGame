@@ -21,18 +21,14 @@ import java.util.Random;
 
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locSpawnDigOrDie;
 import static my.cufee.partygame.Games.PlayersArray.*;
-
+import static my.cufee.partygame.Util.TeleportPlayers.teleportInMoreLoc;
 
 
 public class DigOrDieGame {
     public static void startDigOrDie(){
         Bukkit.broadcastMessage(String.valueOf(playersOnGame.length));
         DigOrDieLocation.setLocation();
-        for (int i = 0; i < playersOnGame.length; i++)
-        {
-            Player teleportedPlayer = playersOnGame[i];
-            teleportedPlayer.teleport(locSpawnDigOrDie[i]);
-        }
+        teleportInMoreLoc(locSpawnDigOrDie);
     }
     public void setRandomBlocks(SessionManager sessionManager) {
         EditSession.Builder editSessionBuilder = WorldEdit.getInstance().newEditSessionBuilder().session(sessionManager);

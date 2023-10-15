@@ -1,7 +1,9 @@
 package my.cufee.partygame.Games.GoldRush;
 
+import my.cufee.partygame.Util.TeleportPlayers;
+
 public class GoldRushStartGame {
-    public static void GRStart(){
-        for(int i = 0; )
+    public static void grStart(){
+        TeleportPlayers.teleportInOneLoc(GoldRushLocation.GRLocationSpawn);
     }
 }

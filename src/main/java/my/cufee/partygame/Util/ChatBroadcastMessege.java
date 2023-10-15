@@ -1,4 +1,4 @@
-package my.cufee.partygame.ChatUtil;
+package my.cufee.partygame.Util;
 
 import my.cufee.partygame.Games.PlayersArray;
 
