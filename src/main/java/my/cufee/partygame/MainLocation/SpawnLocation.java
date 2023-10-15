@@ -11,18 +11,9 @@ public class SpawnLocation {
         return world;
     }
     public static Location getLocLobby() {
-        return new Location(getWorld(), 0.0,61.0,0.0);
+        return new Location(getWorld(), 0.5,61.0,0.5);
     }
     public static Location getLocHub() {
-        return new Location(getWorld(), -40.0,61.0,0.0);
+        return new Location(getWorld(), -40.5,61.0,0.5);
     }
-    public static Location[] setLocation(){
-        Location[] locationss = new Location[8];
-        locationss[0] = new Location(getWorld(), 0.0,0.0,0.0);
-
-
-        return locationss;
-    }
-
-
 }

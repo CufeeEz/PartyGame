@@ -1,9 +1,7 @@
 package my.cufee.partygame.Games.DigOrDie;
 
 import my.cufee.partygame.MainLocation.SpawnLocation;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 
 public class DigOrDieLocation {
     public static Location[] locSpawnDigOrDie = new Location[8];
