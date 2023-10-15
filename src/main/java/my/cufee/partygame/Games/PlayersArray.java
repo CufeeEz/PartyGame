@@ -12,4 +12,6 @@ public class PlayersArray {
         return playersOnGame = new Player[GameCreate.CreatePlayersCount];
     }
     public static Player[] playersOnGame;
+
+
 }
