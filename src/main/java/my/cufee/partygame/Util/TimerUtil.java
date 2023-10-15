@@ -1,5 +1,6 @@
 package my.cufee.partygame.Util;
 
+import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
 import my.cufee.partygame.Games.GoldRush.GoldRushStartGame;
 import my.cufee.partygame.PartyGame;
 import org.bukkit.Bukkit;
@@ -16,7 +17,7 @@ public class TimerUtil {
             }
             else{
                 Bukkit.getScheduler().cancelTask(timerIdGameRule);
-                GoldRushStartGame.grStart();
+                DigOrDieGame.startDigOrDie();
             }
         }, 0, 20).getTaskId();
     }

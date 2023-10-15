@@ -2,6 +2,7 @@ package my.cufee.partygame.Games;
 
 import my.cufee.partygame.CMD.GameCreate;
 import my.cufee.partygame.Util.ChatBroadcastMessege;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
@@ -11,24 +12,27 @@ public class PlayersScore {
     static int CountPoint = 5;
     public static void setPoint(Player player){
         for(int i = 0; i <= playersOnGame.length; i++){
-            if (player.equals(playersOnGame)){
+            if (player.equals(playersOnGame[i])){
                 if (CountPoint == 5) {
                     Score[i] += 5;
-                    ChatBroadcastMessege.PlayerSendMessages(player.getName() + " получил " + CountPoint);
-                    CountPoint = -2;
+                    Bukkit.broadcastMessage(player.getName() + " получил " + CountPoint );
+                    CountPoint -= 2;
+                    break;
                 }
                 if (CountPoint == 3){
                     Score[i] += 3;
-                    ChatBroadcastMessege.PlayerSendMessages(player.getName() + " получил " + CountPoint);
-                    CountPoint =-1;
+                    Bukkit.broadcastMessage(player.getName() + " получил " + CountPoint);
+                    CountPoint -= 1;
+                    break;
                 }
                 if (CountPoint == 2){
                     Score[i] += 2;
-                    ChatBroadcastMessege.PlayerSendMessages(player.getName() + " получил " + CountPoint);
-                    CountPoint =-1;
+                    Bukkit.broadcastMessage(player.getName() + " получил " + CountPoint);
+                    CountPoint -= 1;
+                    break;
                 }
                 else {
-                    ChatBroadcastMessege.PlayerSendMessages(player.getName() + " получил " + CountPoint);
+                    Bukkit.broadcastMessage(player.getName() + " получил " + CountPoint);
                     Score[i] += 1;
                 }
             }
