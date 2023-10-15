@@ -1,9 +1,9 @@
-package my.cufee.partygame.Locations;
+package my.cufee.partygame.MainLocation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-public class Location {
+public class SpawnLocation {
     // Y - 60 standart hight
     public static World world = Bukkit.getWorld("world");
     public static World getWorld(){
