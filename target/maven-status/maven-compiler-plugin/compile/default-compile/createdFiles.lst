@@ -9,6 +9,7 @@ my\cufee\partygame\CMD\GameJoin.class
 my\cufee\partygame\Games\GoldRush\GoldRushStartGame.class
 my\cufee\partygame\Games\PlayersArray.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieLocation.class
+my\cufee\partygame\Util\TimerUtil.class
 my\cufee\partygame\Util\ChatBroadcastMessege.class
 my\cufee\partygame\CMD\GameDelete.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieGame.class

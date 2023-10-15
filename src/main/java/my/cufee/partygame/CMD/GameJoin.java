@@ -4,6 +4,7 @@ import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
 import my.cufee.partygame.Games.GoldRush.GoldRushStartGame;
 import my.cufee.partygame.Games.PlayersArray;
 import my.cufee.partygame.MainLocation.SpawnLocation;
+import my.cufee.partygame.Util.TimerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,7 +29,7 @@ public class GameJoin implements CommandExecutor {
                                 " подключился (" + PlayersArray.count + "/" + GameCreate.CreatePlayersCount + ")");
                         GamePlayer.teleport(SpawnLocation.getLocHub());
                         if (PlayersArray.count == (int) GameCreate.CreatePlayersCount) {
-                            GoldRushStartGame.grStart();
+                            TimerUtil.timeStartGame();
                         }
                     }
                     else {
