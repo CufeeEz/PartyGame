@@ -1,7 +1,6 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
-import my.cufee.partygame.Games.GoldRush.GoldRushStartGame;
 import my.cufee.partygame.PartyGame;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
