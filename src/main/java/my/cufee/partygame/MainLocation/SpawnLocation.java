@@ -14,6 +14,6 @@ public class SpawnLocation {
         return new Location(getWorld(), 0.5,61.0,0.5);
     }
     public static Location getLocHub() {
-        return new Location(getWorld(), -40.5,61.0,0.5);
+        return new Location(getWorld(), -112.5,61.0,1.5);
     }
 }
