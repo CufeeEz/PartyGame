@@ -6,4 +6,3 @@ api-version: '1.20'
 commands:
   pg:
     description: Создание, удаление, подключение и выход из игры
-    usage: /pg <create> <num(players count)> or <delete> or <join> or <leave>

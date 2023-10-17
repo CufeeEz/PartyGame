@@ -8,42 +8,59 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class GameManager implements CommandExecutor {
+public class GameManager implements CommandExecutor, TabCompleter {
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length == 1) {
+            return Arrays.asList("create", "join", "leave", "delete");
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("create")) {
+            return Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8");
+        }
+        return Collections.emptyList();
+    }
     public static int CreatePlayersCount;
     public static boolean GameStatus = false;
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {
             if (strings[0].equals("create")) {
-                Player gameCreator = (Player) commandSender;
-                if (gameCreator.isOp()) {
-                    if (!GameStatus){
-                        int countPlayers = Integer.parseInt(strings[1]);
-                        if(countPlayers >= 1 && countPlayers <= 8){
-                            CreatePlayersCount = Integer.parseInt(strings[1]);
-                            Bukkit.broadcastMessage(ChatColor.GREEN + gameCreator.getName() + " создал игру!" +
-                                    ChatColor.YELLOW + "\nДля подключения напишите /pgjoin");
-                            GameStatus = true;
-                            PlayersArray.createArrayPlayersOnGame(CreatePlayersCount);
-                            return true;
-                        }
-                        else {
-                            commandSender.sendMessage(ChatColor.RED + "Количество игроков должно быть от 1 до 8!");
+                if(strings.length != 1){
+                    Player gameCreator = (Player) commandSender;
+                    if (gameCreator.isOp()) {
+                        if (!GameStatus) {
+                            int countPlayers = Integer.parseInt(strings[1]);
+                            if (countPlayers >= 1 && countPlayers <= 8) {
+                                CreatePlayersCount = Integer.parseInt(strings[1]);
+                                Bukkit.broadcastMessage(ChatColor.GREEN + gameCreator.getName() + " создал игру!" +
+                                        ChatColor.YELLOW + "\nДля подключения напишите /pg join");
+                                GameStatus = true;
+                                PlayersArray.createArrayPlayersOnGame(CreatePlayersCount);
+                                return true;
+                            } else {
+                                commandSender.sendMessage(ChatColor.RED + "Количество игроков должно быть от 1 до 8!");
+                                return false;
+                            }
+                        } else {
+                            commandSender.sendMessage(ChatColor.RED + "Игра уже создана!");
                             return false;
                         }
                     }
                     else {
-                        commandSender.sendMessage(ChatColor.RED + "Игра уже создана!");
+                        commandSender.sendMessage(ChatColor.RED + "Вы не оператор!");
                         return false;
                     }
                 }
                 else {
-                    commandSender.sendMessage(ChatColor.RED + "Вы не оператор!");
+                    commandSender.sendMessage(ChatColor.RED + "Неправильное использование команды!\n/pg create <num>");
                     return false;
                 }
             }
@@ -63,7 +80,7 @@ public class GameManager implements CommandExecutor {
                         }
                         else {
                             commandSender.sendMessage(ChatColor.DARK_RED + "Вы уже в игре!" + ChatColor.GRAY +
-                                    "\nДля выхода из игры напишите /pgleave");
+                                    "\nДля выхода из игры напишите /pg leave");
                             return false;
                         }
                     }

@@ -12,6 +12,7 @@ public final class PartyGame extends JavaPlugin {
     public void onEnable() {
         instance = this;
         getCommand("pg").setExecutor(new GameManager());
+        getCommand("pg").setTabCompleter(new GameManager());
         getServer().getPluginManager().registerEvents(new DigOrDieEvent(), this);
         getServer().getPluginManager().registerEvents(new GoldRushReplaceBlock(), this);
     }
