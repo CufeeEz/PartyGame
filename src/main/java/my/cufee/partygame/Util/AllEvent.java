@@ -6,21 +6,31 @@ import my.cufee.partygame.PartyGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class AllEvent implements Listener {
+    // MAIN EVENTS
+    @EventHandler
+    public void onPlayerHungerChange(FoodLevelChangeEvent event) {
+        event.setCancelled(true);
+    }
+
     // EVENTS GOLD RUSH
     public static boolean grenabled;
     @EventHandler
     public void GRbreakOnlyGold(BlockBreakEvent event) {
         if(grenabled){
             if (event.getBlock().getType() == Material.GOLD_ORE) {
+                Player player = event.getPlayer();
+                PlayersScore.setPointGoldRush(player);
                 return;
             }
             event.setCancelled(true);
@@ -28,7 +38,7 @@ public class AllEvent implements Listener {
         }
     }
     // ----------
-    private boolean grReplaceenabled = false;
+    public static boolean grReplaceenabled;
     @EventHandler
     public void grReplaceBlock(BlockBreakEvent event) {
         if(grReplaceenabled){
@@ -41,6 +51,9 @@ public class AllEvent implements Listener {
     public void replaceBlock(Location location) {
         Block block = location.getBlock();
         Bukkit.getScheduler().runTaskLater(PartyGame.getInstance(), () -> {
+            Particle particle = Particle.FLAME;
+            location.setY(location.getY()+1);
+            SpawnLocation.world.spawnParticle(particle, location, 10);
             block.setType(Material.GOLD_ORE);
         }, 20 * 20);
     }
@@ -48,7 +61,7 @@ public class AllEvent implements Listener {
 
     // EVENTS DIG OR DIE
 
-    public boolean DODTuch = false;
+    public static boolean DODTuch;
     @EventHandler
     public void playerTouchBlock(PlayerInteractEvent event){
 

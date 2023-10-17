@@ -1,8 +1,6 @@
 package my.cufee.partygame;
 
 import my.cufee.partygame.CMD.GameManager;
-import my.cufee.partygame.Games.DigOrDie.DigOrDieEvent;
-import my.cufee.partygame.Games.GoldRush.GoldRushReplaceBlock;
 import my.cufee.partygame.Util.AllEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 

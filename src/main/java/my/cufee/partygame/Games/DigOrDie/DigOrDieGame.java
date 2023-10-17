@@ -30,7 +30,6 @@ import static my.cufee.partygame.Util.TeleportPlayers.teleportInMoreLoc;
 
 public class DigOrDieGame {
     public static void startDigOrDie(){
-        Bukkit.broadcastMessage(String.valueOf(playersOnGame.length));
         DigOrDieLocation.setLocation();
         teleportInMoreLoc(locSpawnDigOrDie);
     }

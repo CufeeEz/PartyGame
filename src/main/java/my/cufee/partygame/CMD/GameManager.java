@@ -2,6 +2,7 @@ package my.cufee.partygame.CMD;
 
 import my.cufee.partygame.Games.PlayersArray;
 import my.cufee.partygame.MainLocation.SpawnLocation;
+import my.cufee.partygame.Util.GameRoll;
 import my.cufee.partygame.Util.TimerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +16,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static my.cufee.partygame.Util.PlayerUtil.clearPlayer;
 
 public class GameManager implements CommandExecutor, TabCompleter {
     @Override
@@ -75,7 +77,7 @@ public class GameManager implements CommandExecutor, TabCompleter {
                                     " подключился (" + PlayersArray.count + "/" + CreatePlayersCount + ")");
                             GamePlayer.teleport(SpawnLocation.getLocHub());
                             if (PlayersArray.count == (int) CreatePlayersCount) {
-                                TimerUtil.timeStartGame();
+                                GameRoll.beginGame();
                             }
                         }
                         else {
@@ -151,4 +153,5 @@ public class GameManager implements CommandExecutor, TabCompleter {
         }
         return false;
     }
+
 }
