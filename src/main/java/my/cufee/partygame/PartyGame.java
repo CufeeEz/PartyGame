@@ -1,7 +1,6 @@
 package my.cufee.partygame;
 
-import my.cufee.partygame.CMD.GameCreate;
-import my.cufee.partygame.CMD.GameJoin;
+import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieEvent;
 import my.cufee.partygame.Games.GoldRush.GoldRushReplaceBlock;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,8 +11,7 @@ public final class PartyGame extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        getCommand("pgjoin").setExecutor(new GameJoin());
-        getCommand("pgcreate").setExecutor(new GameCreate());
+        getCommand("pg").setExecutor(new GameManager());
         getServer().getPluginManager().registerEvents(new DigOrDieEvent(), this);
         getServer().getPluginManager().registerEvents(new GoldRushReplaceBlock(), this);
     }

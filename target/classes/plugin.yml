@@ -4,11 +4,6 @@ main: my.cufee.partygame.PartyGame
 api-version: '1.20'
 
 commands:
-  pgjoin:
-    description: Присоедениться к игре.
-  pgcreate:
-    description: Создать игру.
-  pgleave:
-    description: Покинуть игру.
-  pgdelete:
-    description: Удалить игру.
+  pg:
+    description: Создание, удаление, подключение и выход из игры
+    usage: /pg <create> <num(players count)> or <delete> or <join> or <leave>

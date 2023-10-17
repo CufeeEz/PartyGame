@@ -1,15 +1,14 @@
 package my.cufee.partygame.Games;
 
-import my.cufee.partygame.CMD.GameCreate;
+import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Util.ChatBroadcastMessege;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
 
 public class PlayersScore {
-    public static int[] Score = new int[GameCreate.CreatePlayersCount];
+    public static int[] Score = new int[GameManager.CreatePlayersCount];
     static int CountPoint = 5;
     public static void setPoint(Player player){
         for(int i = 0; i <= playersOnGame.length; i++){

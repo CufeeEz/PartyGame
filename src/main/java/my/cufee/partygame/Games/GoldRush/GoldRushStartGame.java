@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 
-public class GoldRushStartGame {
+    public class GoldRushStartGame {
     public static void grStart(){
         for(Player player: PlayersArray.playersOnGame){
             player.getInventory().addItem(createGoldenOrePickaxe());
