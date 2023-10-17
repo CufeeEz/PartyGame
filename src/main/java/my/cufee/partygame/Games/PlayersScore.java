@@ -2,6 +2,7 @@ package my.cufee.partygame.Games;
 
 import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Util.ChatBroadcastMessege;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -20,24 +21,26 @@ public class PlayersScore {
                     CountPoint -= 2;
                     break;
                 }
-                if (CountPoint == 3){
+                else if (CountPoint == 3){
                     Score[i] += 3;
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GRAY + player.getName() + ChatColor.GREEN
                             + " получил " + CountPoint + " очка!");
                     CountPoint -= 1;
                     break;
                 }
-                if (CountPoint == 2){
+                else if (CountPoint == 2){
                     Score[i] += 2;
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GRAY + player.getName() + ChatColor.YELLOW
                             + " получил " + CountPoint+ " очка!");
                     CountPoint -= 1;
                     break;
                 }
-                else {
+                else if (CountPoint == 1) {
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GRAY + player.getName() + ChatColor.RED
                             + " получил " + CountPoint + " очко!");
                     Score[i] += 1;
+                    Bukkit.broadcastMessage(player.getName() + " имеет " + Score[i] + " очков");
+                    break;
                 }
             }
         }
