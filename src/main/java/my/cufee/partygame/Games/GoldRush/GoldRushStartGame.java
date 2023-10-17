@@ -2,6 +2,7 @@ package my.cufee.partygame.Games.GoldRush;
 
 
 import my.cufee.partygame.Games.PlayersArray;
+import my.cufee.partygame.Util.AllEvent;
 import org.bukkit.Material;
 
 import org.bukkit.entity.Player;

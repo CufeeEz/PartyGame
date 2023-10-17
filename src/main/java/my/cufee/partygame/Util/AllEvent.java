@@ -16,10 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class AllEvent implements Listener {
     // EVENTS GOLD RUSH
-    private boolean grenabled = false;
-    public void setEnabledbreakOnlyGold(boolean enabled) {
-        this.grenabled = enabled;
-    }
+    public static boolean grenabled;
     @EventHandler
     public void GRbreakOnlyGold(BlockBreakEvent event) {
         if(grenabled){
@@ -32,9 +29,6 @@ public class AllEvent implements Listener {
     }
     // ----------
     private boolean grReplaceenabled = false;
-    public void setEnabledGRReplace(boolean enabled) {
-        this.grReplaceenabled = enabled;
-    }
     @EventHandler
     public void grReplaceBlock(BlockBreakEvent event) {
         if(grReplaceenabled){
@@ -54,10 +48,7 @@ public class AllEvent implements Listener {
 
     // EVENTS DIG OR DIE
 
-    private boolean DODTuch = false;
-    public void setEnabledDODTuch(boolean enabled) {
-        this.DODTuch = enabled;
-    }
+    public boolean DODTuch = false;
     @EventHandler
     public void playerTouchBlock(PlayerInteractEvent event){
 

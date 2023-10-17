@@ -1,8 +1,6 @@
 my\cufee\partygame\PartyGame.class
 my\cufee\partygame\Games\GoldRush\GoldRushLocation.class
 my\cufee\partygame\Games\GoldRush\GoldRushEvents.class
-my\cufee\partygame\Util\DisableEvent.class
-my\cufee\partygame\Games\GoldRush\test.class
 my\cufee\partygame\MainLocation\SpawnLocation.class
 my\cufee\partygame\Util\TeleportPlayers.class
 my\cufee\partygame\Games\GoldRush\GoldRushReplaceBlock.class
@@ -14,4 +12,5 @@ my\cufee\partygame\Util\TimerUtil.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieEvent.class
 my\cufee\partygame\Games\PlayersScore.class
 my\cufee\partygame\Util\ChatBroadcastMessege.class
+my\cufee\partygame\Util\AllEvent.class
 my\cufee\partygame\Games\DigOrDie\DigOrDieGame.class

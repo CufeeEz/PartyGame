@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class TimerUtil {
+    static AllEvent event = new AllEvent();
     static int timerIdGameRule;
     static int timerStartGame = 5;
     public static void timeStartGame(){
