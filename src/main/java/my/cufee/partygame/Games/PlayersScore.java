@@ -57,6 +57,8 @@ public class PlayersScore {
     static int max = 0;
     static int maxindex = 0;
     public static void calculatePointGoldRush() {
+        max = ScoreGoldRush[0];
+        maxindex = 0;
         for (int i = 0; i < ScoreGoldRush.length; i++) {
             if (ScoreGoldRush[i] > max) {
                 max = ScoreGoldRush[i];

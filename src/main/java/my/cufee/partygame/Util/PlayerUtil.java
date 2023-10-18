@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 public class PlayerUtil {
-    public static void clearPlayer(){
+    public static void clearPlayers(){
         for(Player player: PlayersArray.playersOnGame){
             player.setHealth(20);
             player.getInventory().clear();

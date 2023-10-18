@@ -10,14 +10,14 @@ public class GameRoll {
     Random random = new Random();
     public static int rollGame(){
         Random random = new Random();
-        int randomNumber = random.nextInt(2) + 1;
+        int randomNumber = random.nextInt(1) + 1;
         return randomNumber;
     }
     public static void beginGame(){
         int num = rollGame();
         switch (num){
             case 1: TimerUtil.timeStartGame();break;
-            case 2: DigOrDieGame.startDigOrDie();break;
+            //case 2: DigOrDieGame.startDigOrDie();break;
         }
     }
 }

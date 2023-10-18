@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static my.cufee.partygame.Util.PlayerUtil.clearPlayer;
-
 public class GameManager implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {

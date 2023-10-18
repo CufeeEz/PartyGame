@@ -12,7 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static my.cufee.partygame.Games.PlayersScore.calculatePointGoldRush;
-import static my.cufee.partygame.Util.PlayerUtil.clearPlayer;
+import static my.cufee.partygame.Util.PlayerUtil.clearPlayers;
 
 public class TimerUtil {
     static AllEvent event = new AllEvent();
@@ -25,7 +25,7 @@ public class TimerUtil {
                 timerStartGame--;
             }
             else{
-                clearPlayer();
+                clearPlayers();
                 Bukkit.getScheduler().cancelTask(timerIdGameRule);
                 timeStartgr();
             }
@@ -58,7 +58,7 @@ public class TimerUtil {
         }, 0, 20).getTaskId();
     }
     static int timerIdGRgame;
-    static int timerStartGRgame = 183; //310
+    static int timerStartGRgame = 30; //310
     public static void timeStartgrGame(){
         timerIdGRgame = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartGRgame){
@@ -86,14 +86,17 @@ public class TimerUtil {
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось "+ (timerStartGRgame-3) + " секунда");
                     break;
                 case 3:
-                    PlayerUtil.clearPlayer();
+                    clearPlayers();
+                    calculatePointGoldRush();
+                    Bukkit.broadcastMessage("вызов калькуляции");
+                    for(int i = 0; i < PlayersArray.playersOnGame.length; i++){
+                        calculatePointGoldRush();
+                    }
                 case 0:
                     for(Player player: PlayersArray.playersOnGame) {
                         player.teleport(SpawnLocation.getLocHub());
                     }
-                    for(int i = 0; i < GameManager.CreatePlayersCount; i++){
-                        calculatePointGoldRush();
-                    }
+
             }
             timerStartGRgame--;
         }, 0, 20).getTaskId();
