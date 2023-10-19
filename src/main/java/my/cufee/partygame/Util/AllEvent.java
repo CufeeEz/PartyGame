@@ -1,5 +1,6 @@
 package my.cufee.partygame.Util;
 
+import my.cufee.partygame.Games.PlayersArray;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
@@ -16,25 +17,40 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
+
 public class AllEvent implements Listener {
     // MAIN EVENTS
+    public static boolean hungerChangeEnabled = true;
     @EventHandler
     public void onPlayerHungerChange(FoodLevelChangeEvent event) {
-        event.setCancelled(true);
+        if(hungerChangeEnabled){
+            event.setCancelled(true);
+        }
     }
-
+    public static boolean breakBlocksEnabled = true;
+    @EventHandler
+    public void disableBreakBlocks(BlockBreakEvent event){
+        if(breakBlocksEnabled){
+            event.setCancelled(true);
+        }
+    }
     // EVENTS GOLD RUSH
     public static boolean grenabled;
     @EventHandler
     public void GRbreakOnlyGold(BlockBreakEvent event) {
         if(grenabled){
-            if (event.getBlock().getType() == Material.GOLD_ORE) {
-                Player player = event.getPlayer();
-                PlayersScore.setPointGoldRush(player);
-                return;
+            Player player = event.getPlayer();
+            for(int i = 0; i < playersOnGame.length; i++) {
+                if (player.equals(playersOnGame[i])) {
+                    if (event.getBlock().getType() == Material.GOLD_ORE) {
+                        PlayersScore.setPointGoldRush(player);
+                        return;
+                    }
+                    event.setCancelled(true);
+                    event.getPlayer().sendMessage("Вы можете ломать только золотую руду.");
+                }
             }
-            event.setCancelled(true);
-            event.getPlayer().sendMessage("Вы можете ломать только золотую руду.");
         }
     }
     // ----------

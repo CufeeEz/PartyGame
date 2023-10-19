@@ -1,43 +1,46 @@
 package my.cufee.partygame.Util;
 
-import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Games.GoldRush.GoldRushEvents;
 import my.cufee.partygame.Games.GoldRush.GoldRushLocation;
 import my.cufee.partygame.Games.GoldRush.GoldRushStartGame;
 import my.cufee.partygame.Games.PlayersArray;
+import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import static my.cufee.partygame.Games.PlayersScore.calculatePointGoldRush;
+import static my.cufee.partygame.Games.GoldRush.GoldRushStartGame.giveLeatherArmor;
+import static my.cufee.partygame.Games.PlayersScore.*;
 import static my.cufee.partygame.Util.PlayerUtil.clearPlayers;
 
 public class TimerUtil {
-    static AllEvent event = new AllEvent();
     static int timerIdGameRule;
-    static int timerStartGame = 5;
+    static int timerStartGame;
     public static void timeStartGame(){
+        timerStartGame = 5;
         timerIdGameRule = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             if (timerStartGame > 0){
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До начала игры: " + timerStartGame);
                 timerStartGame--;
             }
             else{
-                clearPlayers();
+                GameRoll.beginGame();
                 Bukkit.getScheduler().cancelTask(timerIdGameRule);
-                timeStartgr();
             }
         }, 0, 20).getTaskId();
     }
 
     // таймеры голдраша
     static int timerIdGR;
-    static int timerStartGR = 6;
+    static int timerStartGR;
     public static void timeStartgr(){
+        timerStartGR = 6;
         timerIdGR = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             if(timerStartGR == 6){
+                AllEvent.breakBlocksEnabled = true;
+                giveLeatherArmor();
                 GoldRushEvents.setblock();
                 TeleportPlayers.teleportInOneLoc(GoldRushLocation.GRLocationSpawn);
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GOLD + "[=---Gold" + ChatColor.DARK_RED + "Rush---=]");
@@ -50,16 +53,18 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Начинайте копать через: " + timerStartGR);
             }
             else if(timerStartGR == 0){
+                AllEvent.breakBlocksEnabled = false;
                 timeStartgrGame();
                 GoldRushStartGame.grStart();
-                Bukkit.getScheduler().cancelTask(timerStartGR);
+                Bukkit.getScheduler().cancelTask(timerIdGR);
             }
             timerStartGR--;
         }, 0, 20).getTaskId();
     }
     static int timerIdGRgame;
-    static int timerStartGRgame = 30; //310
+    static int timerStartGRgame;
     public static void timeStartgrGame(){
+        timerStartGRgame = 23; // 183
         timerIdGRgame = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartGRgame){
                 case 183:
@@ -87,26 +92,36 @@ public class TimerUtil {
                     break;
                 case 3:
                     clearPlayers();
-                    calculatePointGoldRush();
-                    Bukkit.broadcastMessage("вызов калькуляции");
-                    for(int i = 0; i < PlayersArray.playersOnGame.length; i++){
-                        calculatePointGoldRush();
-                    }
+                    sortScoreGoldRush();
+                    break;
                 case 0:
-                    for(Player player: PlayersArray.playersOnGame) {
-                        player.teleport(SpawnLocation.getLocHub());
+                    for(int i = 0; i < PlayersArray.playersOnGame.length; i++) {
+                        PlayersArray.playersOnGame[i].teleport(SpawnLocation.getLocHub());
                     }
-
+                    AllEvent.breakBlocksEnabled = true;
+                    AllEvent.grenabled = false;
+                    AllEvent.grReplaceenabled = false;
+                    timerTimeOut();
+                    PlayersScore.resetScoreGoldRush();
+                    Bukkit.getScheduler().cancelTask(timerIdGRgame);
+                    break;
             }
             timerStartGRgame--;
         }, 0, 20).getTaskId();
     }
     static int timerIdTimeOut;
-    static int timerTimeOut = 10;
+    static int timerTimeOut;
     public static void timerTimeOut() {
+        timerTimeOut = 10;
         timerIdTimeOut = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
-            if (timerTimeOut==0){
-
+            switch (timerTimeOut){
+                case 10:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Идет подбор следующей игры");
+                    break;
+                case 0:
+                    GameRoll.beginGame();
+                    Bukkit.getScheduler().cancelTask(timerIdTimeOut);
+                    break;
             }
             timerTimeOut--;
         }, 0, 20).getTaskId();

@@ -1,8 +1,11 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
+import org.bukkit.Bukkit;
 
 import java.util.Random;
+
+import static my.cufee.partygame.Util.TimerUtil.timeStartgr;
 
 public class GameRoll {
     //1 - GoldRush
@@ -16,7 +19,9 @@ public class GameRoll {
     public static void beginGame(){
         int num = rollGame();
         switch (num){
-            case 1: TimerUtil.timeStartGame();break;
+            case 1:
+                timeStartgr();
+                break;
             //case 2: DigOrDieGame.startDigOrDie();break;
         }
     }
