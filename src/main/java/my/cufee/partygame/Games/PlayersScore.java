@@ -41,7 +41,6 @@ public class PlayersScore {
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GRAY + player.getName() + ChatColor.RED
                             + " получил " + CountPoint + " очко!");
                     Score[i] += 1;
-                    Bukkit.broadcastMessage(player.getName() + " имеет " + Score[i] + " очков");
                     break;
                 }
             }

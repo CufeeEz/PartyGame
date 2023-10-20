@@ -1,6 +1,6 @@
 package my.cufee.partygame.Util;
 
-import my.cufee.partygame.Games.PlayersArray;
+import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
@@ -79,12 +79,25 @@ public class AllEvent implements Listener {
 
     public static boolean DODTuch;
     @EventHandler
-    public void playerTouchBlock(PlayerInteractEvent event){
+    public void playerTouchBlockDOD(PlayerInteractEvent event){
 
         Player player = event.getPlayer();
         if(DODTuch){
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 if (event.getClickedBlock().getType().equals(Material.SCULK_SENSOR)){
+                    PlayersScore.setPoint(player);
+                    player.teleport(SpawnLocation.getLocHub());
+                }
+            }
+        }
+    }
+    public static boolean ParkourTuchEvent;
+    @EventHandler
+    public void playerTouchBlockParkour(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        if(ParkourTuchEvent){
+            if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
                     PlayersScore.setPoint(player);
                     player.teleport(SpawnLocation.getLocHub());
                 }

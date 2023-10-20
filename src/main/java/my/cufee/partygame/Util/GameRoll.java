@@ -20,8 +20,11 @@ public class GameRoll {
         int num = rollGame();
         switch (num){
             case 1:
-                timeStartgr();
+                TimerUtil.timeStartParkour();
                 break;
+            //case 1:
+                //timeStartgr();
+                //break;
             //case 2: DigOrDieGame.startDigOrDie();break;
         }
     }
