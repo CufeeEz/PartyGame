@@ -1,7 +1,9 @@
 package my.cufee.partygame.Games.Parkour;
 
+import com.sk89q.worldedit.math.BlockVector3;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import org.bukkit.Location;
+import org.bukkit.util.BlockVector;
 
 public class ParkourLocartion {
     public static Location ParkourLocationSpawn = new Location(SpawnLocation.getWorld(), -105.5, 61.0, -37.5);
@@ -15,5 +17,6 @@ public class ParkourLocartion {
         ParkourLocationBlock[5] = new Location(SpawnLocation.world, -107.0,61.0,-47.0);
         return ParkourLocationBlock;
     }
+
     public static Location ParkourLocationFinish = new Location(SpawnLocation.getWorld(), -133.5, 61.0, -44.5);
 }

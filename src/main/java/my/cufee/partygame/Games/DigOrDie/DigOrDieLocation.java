@@ -16,5 +16,5 @@ public class DigOrDieLocation {
         locSpawnDigOrDie[7] = new Location(SpawnLocation.getWorld(), -50.5, 62.5, 37.5);
         return locSpawnDigOrDie;
     }
-
+    public static Location pasteSchem = new Location(SpawnLocation.world, -58, 17,64);
 }

@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 
 import java.util.Random;
 
+import static my.cufee.partygame.Games.Labyrinth.LabyrinthGame.startLabyrinth;
 import static my.cufee.partygame.Util.TimerUtil.timeStartgr;
 
 public class GameRoll {
@@ -20,8 +21,11 @@ public class GameRoll {
         int num = rollGame();
         switch (num){
             case 1:
-                TimerUtil.timeStartParkour();
+                startLabyrinth();
                 break;
+            //case 1:
+            //    TimerUtil.timeStartParkour();
+            //    break;
             //case 1:
                 //timeStartgr();
                 //break;
