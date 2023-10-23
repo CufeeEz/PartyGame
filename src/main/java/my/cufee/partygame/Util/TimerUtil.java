@@ -267,7 +267,7 @@ public class TimerUtil {
                 Bukkit.getScheduler().cancelTask(timerStartDigOrDieGame);
             }
             timerStartDigOrDieGame--;
-        }, 0, 20).getTaskId();
+        }, 0, 40).getTaskId();
     }
     static int timerStartDOD;
     static int timerIdDOD;
@@ -289,12 +289,11 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Начинайте копать через: " + timerStartDOD);
             } else if (timerStartDOD == 0) {
                 AllEvent.breakBlocksEnabled = false;
-                timerStartDigOrDie();
                 removeBlock();
-                timeStartgrGame();
+                timerStartDigOrDie();
                 Bukkit.getScheduler().cancelTask(timerIdDOD);
             }
-            timerIdDOD--;
+            timerStartDOD--;
         }, 0, 20).getTaskId();
     }
 }
