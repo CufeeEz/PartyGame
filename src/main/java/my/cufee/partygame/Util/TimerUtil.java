@@ -12,7 +12,6 @@ import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieGame.*;
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locSpawnDigOrDie;
