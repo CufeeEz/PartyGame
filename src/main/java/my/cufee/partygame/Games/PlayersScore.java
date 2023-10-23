@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
 
 public class PlayersScore {
@@ -39,12 +41,16 @@ public class PlayersScore {
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GRAY + player.getName() + ChatColor.RED
                             + " получил " + CountPoint + " очко!");
                     Score[i] += 1;
-                    Bukkit.broadcastMessage(player.getName() + " имеет " + Score[i] + " очков");
                     break;
                 }
             }
         }
     }
+
+    public static void resetScoreGoldRush(){
+        Arrays.fill(ScoreGoldRush, 0);
+    }
+    //регистрация очков за мини-игру
     public static int[] ScoreGoldRush = new int[GameManager.CreatePlayersCount];
     public static void setPointGoldRush(Player player){
         for(int i = 0; i < playersOnGame.length; i++) {
@@ -54,21 +60,27 @@ public class PlayersScore {
             }
         }
     }
-    static int max = 0;
-    static int maxindex = 0;
-    public static void calculatePointGoldRush() {
-        max = ScoreGoldRush[0];
-        maxindex = 0;
-        for (int i = 0; i <= ScoreGoldRush.length; i++) {
-            if (ScoreGoldRush[i] > max) {
-                max = ScoreGoldRush[i];
-                ScoreGoldRush[i] = 0;
-                maxindex = i;
+    //сортировка очков
+    public static void sortScoreGoldRush(){
+        for (int i = 0; i < ScoreGoldRush.length - 1; i++) {
+            for (int j = i + 1; j < ScoreGoldRush.length; j++) {
+                if (ScoreGoldRush[j] > ScoreGoldRush[i]) {
+                    int tempScore = ScoreGoldRush[i];
+                    ScoreGoldRush[i] = ScoreGoldRush[j];
+                    ScoreGoldRush[j] = tempScore;
+
+                    Player tempPlayer = playersOnGame[i];
+                    playersOnGame[i] = playersOnGame[j];
+                    playersOnGame[j] = tempPlayer;
+                }
             }
         }
-        setScoreGoldRush(maxindex,max);
+        for (int i = 0; i < ScoreGoldRush.length; i++) {
+            setScoreGoldRush(i, ScoreGoldRush[i]);
+        }
     }
-        public static int setPointGR = 5;
+    //выдача очков за голдраш
+    public static int setPointGR = 5;
     public static void setScoreGoldRush(int i, int count){
         if (setPointGR == 5) {
             Score[i] += 5;
@@ -93,8 +105,6 @@ public class PlayersScore {
                     + " получил " + setPointGR + " очко и добыл " + count + " золота!");
             Score[i] += 1;
         }
-        for(int ii = 0; i < playersOnGame.length; i++){
-            Bukkit.broadcastMessage(playersOnGame[i].getName() + " " + Score[i]);
-        }
+        Bukkit.broadcastMessage(playersOnGame[i].getName() + " " +  Score[i]);
     }
 }

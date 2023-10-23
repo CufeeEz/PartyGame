@@ -14,6 +14,17 @@ public class PlayerUtil {
             for(PotionEffect e : player.getActivePotionEffects()){
                 player.removePotionEffect(e.getType());
             }
+            player.setGameMode(GameMode.ADVENTURE);
+        }
+    }
+    public static void clearOnePlayer(Player player){
+        player.setGameMode(GameMode.ADVENTURE);
+        player.setHealth(20);
+        player.getInventory().clear();
+        player.setFoodLevel(20);
+        for(PotionEffect e : player.getActivePotionEffects()){
+            player.removePotionEffect(e.getType());
+
         }
     }
 }

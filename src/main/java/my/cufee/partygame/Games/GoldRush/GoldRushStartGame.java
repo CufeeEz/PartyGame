@@ -24,7 +24,6 @@ public class GoldRushStartGame {
     public static void grStart(){
         for (Player player : playersOnGame) {
             player.getInventory().addItem(createGoldenOrePickaxe());
-            giveLeatherArmor(player);
             givePoitonEffect(player);
             player.setGameMode(GameMode.SURVIVAL);
         }
@@ -42,7 +41,7 @@ public class GoldRushStartGame {
         return pickaxe;
     }
 
-    public static void giveLeatherArmor(Player player) {
+    public static void giveLeatherArmor() {
         ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
         ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
         ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
@@ -67,11 +66,12 @@ public class GoldRushStartGame {
         chestplate.setItemMeta(chestplateMeta);
         leggings.setItemMeta(leggingsMeta);
         boots.setItemMeta(bootsMeta);
-
-        player.getInventory().setHelmet(helmet);
-        player.getInventory().setChestplate(chestplate);
-        player.getInventory().setLeggings(leggings);
-        player.getInventory().setBoots(boots);
+        for (Player player : playersOnGame){
+            player.getInventory().setHelmet(helmet);
+            player.getInventory().setChestplate(chestplate);
+            player.getInventory().setLeggings(leggings);
+            player.getInventory().setBoots(boots);
+        }
     }
     public static void givePoitonEffect(Player player){
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300*20, 10, false, false));
