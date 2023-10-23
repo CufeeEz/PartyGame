@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class LabyrinthGame {
-    static Location spawnLocation = LabyrinthLocation.getRandomSpawnLocation();
+    static Location spawnLocation = LabyrinthLocation.getRandomSpawnLocationIndex();
     public static void startLabyrinth(){
         PlayerUtil.clearPlayers();
 

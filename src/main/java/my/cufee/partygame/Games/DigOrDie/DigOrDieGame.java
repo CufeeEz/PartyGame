@@ -27,6 +27,7 @@ public class DigOrDieGame {
         DigOrDieLocation.setLocation();
         teleportInMoreLoc(locSpawnDigOrDie);
         AllEvent.digEnable = true;
+        AllEvent.breakBlocksEnabled = false;
     }
 
 }

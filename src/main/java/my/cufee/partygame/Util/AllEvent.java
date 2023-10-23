@@ -85,7 +85,7 @@ public class AllEvent implements Listener {
             for (int i = 0; i < playersOnGame.length; i++) {
                 if (player.equals(playersOnGame[i])) {
                     if (event.getBlock().getType() == Material.WHITE_WOOL | event.getBlock().getType() == Material.DIRT |
-                            event.getBlock().getType() == Material.STONE | event.getBlock().getType() == Material.OAK_WOOD) {
+                            event.getBlock().getType() == Material.STONE | event.getBlock().getType() == Material.OAK_LOG) {
                         return;
                     }
                     event.setCancelled(true);

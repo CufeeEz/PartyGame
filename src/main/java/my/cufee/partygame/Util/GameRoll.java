@@ -20,16 +20,16 @@ public class GameRoll {
     public static void beginGame(){
         int num = rollGame();
         switch (num){
-            case 1:
-                startLabyrinth();
-                break;
+            //case 1:
+            //    startLabyrinth();
+            //    break;
             //case 1:
             //    TimerUtil.timeStartParkour();
             //    break;
             //case 1:
                 //timeStartgr();
                 //break;
-            //case 2: DigOrDieGame.startDigOrDie();break;
+            case 1: DigOrDieGame.startDigOrDie();break;
         }
     }
 }
