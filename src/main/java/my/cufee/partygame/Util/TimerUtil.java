@@ -1,5 +1,6 @@
 package my.cufee.partygame.Util;
 
+import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieLocation;
 import my.cufee.partygame.Games.GoldRush.GoldRushEvents;
 import my.cufee.partygame.Games.GoldRush.GoldRushLocation;
@@ -288,7 +289,7 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Начинайте копать через: " + timerStartDOD);
             } else if (timerStartDOD == 0) {
                 AllEvent.breakBlocksEnabled = false;
-                removeBlock();
+                DigOrDieGame.removeBlock();
                 timerStartDigOrDie();
                 Bukkit.getScheduler().cancelTask(timerIdDOD);
             }

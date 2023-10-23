@@ -17,7 +17,7 @@ public class DigOrDieLocation {
         return locSpawnDigOrDie;
     }
     public static Location[] locBedrockDigOrDie = new Location[8];
-    public static Location[] setbedrockLocation() {
+    public static Location[] setBedrockLocation() {
         locBedrockDigOrDie[0] = new Location(SpawnLocation.getWorld(), -40.5, 61.5, 33.5);
         locBedrockDigOrDie[1] = new Location(SpawnLocation.getWorld(), -30.5, 61.5, 37.5);
         locBedrockDigOrDie[2] = new Location(SpawnLocation.getWorld(), -26.5, 61.5, 47.5);
