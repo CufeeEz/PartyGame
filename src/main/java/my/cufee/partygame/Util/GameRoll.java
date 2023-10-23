@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import java.util.Random;
 
 import static my.cufee.partygame.Games.Labyrinth.LabyrinthGame.startLabyrinth;
+import static my.cufee.partygame.Games.Parkour.ParkourGame.startParkour;
 import static my.cufee.partygame.Util.TimerUtil.timeStartgr;
 
 public class GameRoll {
@@ -29,7 +30,8 @@ public class GameRoll {
             //case 1:
                 //timeStartgr();
                 //break;
-            case 1: DigOrDieGame.startDigOrDie();break;
+            //case 1: DigOrDieGame.startDigOrDie();break;
+            case 1:startParkour();
         }
     }
 }

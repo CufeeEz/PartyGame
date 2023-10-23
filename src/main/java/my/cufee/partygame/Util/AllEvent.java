@@ -1,5 +1,6 @@
 package my.cufee.partygame.Util;
 
+import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
@@ -19,6 +20,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
+import static my.cufee.partygame.Util.TimerUtil.timerLabyrinth;
 
 public class AllEvent implements Listener {
     // MAIN EVENTS
@@ -54,7 +56,7 @@ public class AllEvent implements Listener {
             }
         }
     }
-    // ----------
+    // ---------- EVENTS GOLD RUSH
     public static boolean grReplaceenabled;
     @EventHandler
     public void grReplaceBlock(BlockBreakEvent event) {
@@ -95,7 +97,6 @@ public class AllEvent implements Listener {
         }
     }
 
-
     public static boolean DODTuch;
     @EventHandler
     public void playerTouchBlockDOD(PlayerInteractEvent event){
@@ -110,6 +111,9 @@ public class AllEvent implements Listener {
             }
         }
     }
+
+
+    // EVENTS PARKOUR
     public static boolean ParkourTuchEvent;
     @EventHandler
     public void playerTouchBlockParkour(PlayerInteractEvent event){
@@ -119,6 +123,29 @@ public class AllEvent implements Listener {
                 if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
                     PlayersScore.setPoint(player);
                     player.teleport(SpawnLocation.getLocHub());
+                }
+            }
+        }
+    }
+    // EVENTS LABYRINTH
+    public static boolean labyrinthTuchEvent;
+    int playerFinished = 0;
+    @EventHandler
+    public void playerTouchBlockLabyrinth(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        if(labyrinthTuchEvent){
+            if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
+                    PlayersScore.setPoint(player);
+                    player.teleport(SpawnLocation.getLocHub());
+                    playerFinished +=1;
+                    if(playerFinished == GameManager.CreatePlayersCount){
+                        Bukkit.getScheduler().cancelTask(timerLabyrinth);
+                        GameRoll.beginGame();
+                        TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+                        PlayerUtil.clearPlayers();
+                        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN);
+                    }
                 }
             }
         }

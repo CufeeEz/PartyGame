@@ -1,6 +1,7 @@
 package my.cufee.partygame.Games.Labyrinth;
 
 import my.cufee.partygame.Games.PlayersArray;
+import my.cufee.partygame.Util.AllEvent;
 import my.cufee.partygame.Util.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -11,10 +12,12 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class LabyrinthGame {
-    static Location spawnLocation = LabyrinthLocation.getRandomSpawnLocationIndex();
-    public static void startLabyrinth(){
-        PlayerUtil.clearPlayers();
 
+    public static void startLabyrinth(){
+        AllEvent.breakBlocksEnabled = true;
+        Location spawnLocation = LabyrinthLocation.getRandomSpawnLocationIndex();
+        PlayerUtil.clearPlayers();
+        LabyrinthLocation.setlabyrinthSpawnLocation();
         int indexSpectator = setRoleLabyrinth();
         Player spectator = PlayersArray.playersOnGame[indexSpectator];
         for(Player player : PlayersArray.playersOnGame){

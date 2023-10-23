@@ -191,8 +191,42 @@ public class TimerUtil {
                 PlayerUtil.clearPlayers();
                 Bukkit.getScheduler().cancelTask(timerIdParkour);
             }
-
             timerParkour--;
+        }, 0, 20).getTaskId();
+    }
+    // --- таймеры лабиринта
+    static int timerIdLabyrinth;
+    static int timerLabyrinth;
+    public static void timerLabyrinthGame(){
+        timerLabyrinth = 300;
+        timerIdLabyrinth = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            switch (timerLabyrinth){
+                case 300:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth/60 + " минут");
+                    break;
+                case 240:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth/60 + " минуты");
+                    break;
+                case 180:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth/60 + " минуты");
+                    break;
+                case 120:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth/60 + " минуты");
+                    break;
+                case 60:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth/60 + " минута");
+                    break;
+            }
+            if(timerLabyrinth >= 1 && timerLabyrinth <= 5){
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Игра закончится через " + timerParkour);
+            }
+            else if (timerLabyrinth == 0) {
+                GameRoll.beginGame();
+                TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+                PlayerUtil.clearPlayers();
+                Bukkit.getScheduler().cancelTask(timerLabyrinth);
+            }
+            timerLabyrinth--;
         }, 0, 20).getTaskId();
     }
 }
