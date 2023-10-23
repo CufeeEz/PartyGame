@@ -68,6 +68,7 @@ public class PlayersScore {
                     int tempScore = ScoreGoldRush[i];
                     ScoreGoldRush[i] = ScoreGoldRush[j];
                     ScoreGoldRush[j] = tempScore;
+
                     Player tempPlayer = playersOnGame[i];
                     playersOnGame[i] = playersOnGame[j];
                     playersOnGame[j] = tempPlayer;

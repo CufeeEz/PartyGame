@@ -4,6 +4,7 @@ import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -76,6 +77,24 @@ public class AllEvent implements Listener {
     // END EVENTS GOLD RUSH
 
     // EVENTS DIG OR DIE
+    public static boolean digEnable;
+    @EventHandler
+    public void breakDigOrDie(BlockBreakEvent event) {
+        if (digEnable) {
+            Player player = event.getPlayer();
+            for (int i = 0; i < playersOnGame.length; i++) {
+                if (player.equals(playersOnGame[i])) {
+                    if (event.getBlock().getType() == Material.WHITE_WOOL | event.getBlock().getType() == Material.DIRT |
+                            event.getBlock().getType() == Material.STONE | event.getBlock().getType() == Material.OAK_WOOD) {
+                        return;
+                    }
+                    event.setCancelled(true);
+                    event.getPlayer().sendMessage(ChatColor.DARK_RED + "КОПАЙ ПОД СЕБЯ!");
+                }
+            }
+        }
+    }
+
 
     public static boolean DODTuch;
     @EventHandler

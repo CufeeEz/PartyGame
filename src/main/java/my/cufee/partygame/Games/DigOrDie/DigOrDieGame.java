@@ -10,6 +10,7 @@ import com.sk89q.worldedit.world.World;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
+import my.cufee.partygame.Util.AllEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Vector;
 
@@ -26,6 +27,7 @@ public class DigOrDieGame {
     public static void startDigOrDie(){
         DigOrDieLocation.setLocation();
         teleportInMoreLoc(locSpawnDigOrDie);
+        AllEvent.digEnable = true;
     }
 
 }
