@@ -1,7 +1,7 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.CMD.GameManager;
-import my.cufee.partygame.Games.Parkour.ParkourLocartion;
+import my.cufee.partygame.Games.Labyrinth.LabyrinthGame;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
@@ -129,22 +129,28 @@ public class AllEvent implements Listener {
     }
     // EVENTS LABYRINTH
     public static boolean labyrinthTuchEvent;
-    int playerFinished = 0;
+    int playerFinished = 1;
     @EventHandler
     public void playerTouchBlockLabyrinth(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if(labyrinthTuchEvent){
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-                if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
-                    PlayersScore.setPoint(player);
-                    player.teleport(SpawnLocation.getLocHub());
-                    playerFinished +=1;
-                    if(playerFinished == GameManager.CreatePlayersCount){
-                        Bukkit.getScheduler().cancelTask(timerLabyrinth);
-                        GameRoll.beginGame();
-                        TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
-                        PlayerUtil.clearPlayers();
-                        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN);
+                if (LabyrinthGame.spectator.equals(player)){
+                    player.sendMessage("Самый умный???");
+                }
+                else {
+                    if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
+                        PlayersScore.setPoint(player);
+                        player.teleport(SpawnLocation.getLocHub());
+                        playerFinished +=1;
+                        if(playerFinished == GameManager.CreatePlayersCount){
+                            Bukkit.getScheduler().cancelTask(timerLabyrinth);
+                            TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+                            PlayerUtil.clearPlayers();
+                            ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша, "
+                                    + LabyrinthGame.spectator.getName() + " получает " + playerFinished + " очков!");
+                            //GameRoll.beginGame();
+                        }
                     }
                 }
             }

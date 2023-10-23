@@ -18,7 +18,6 @@ public class LabyrinthLocation {
         labyrinthSpawnLocation[6] = new Location(SpawnLocation.world, -293.5, 61.0, 79.5);
         labyrinthSpawnLocation[7] = new Location(SpawnLocation.world, -245.5, 61.0, 79.5);
     }
-    public static Location labyrinthFinishLocation = new Location(SpawnLocation.world, -246.0, 62.0, 127.0);
     public static Location getRandomSpawnLocationIndex(){
         Random random = new Random();
         int randomindex = random.nextInt(8);
