@@ -32,12 +32,14 @@ import java.io.File;
 import java.sql.Time;
 
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locSpawnDigOrDie;
+import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.setBedrockLocation;
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
 import static my.cufee.partygame.Util.TeleportPlayers.teleportInMoreLoc;
 
 
 public class DigOrDieGame {
     public static void startDigOrDie() {
+        setBedrockLocation();
         TimerUtil.timeStartDOD();
     }
 
