@@ -17,7 +17,6 @@ import org.bukkit.util.Vector;
 
 import java.awt.datatransfer.Clipboard;
 import java.io.File;
-import java.io.FileInputStream;
 
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locSpawnDigOrDie;
 import static my.cufee.partygame.Util.TeleportPlayers.teleportInMoreLoc;
