@@ -122,6 +122,8 @@ public class TimerUtil {
 
     public static void timerTimeOut() {
         timerTimeOut = 10;
+        TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+        PlayerUtil.clearPlayers();
         timerIdTimeOut = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerTimeOut) {
                 case 10:
@@ -166,7 +168,7 @@ public class TimerUtil {
         }, 0, 20).getTaskId();
     }
 
-    static int timerIdParkour;
+    public static int timerIdParkour;
     static int timerParkour;
 
     public static void timerParkour() {
@@ -289,7 +291,7 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Начинайте копать через: " + timerStartDOD);
             } else if (timerStartDOD == 0) {
                 AllEvent.breakBlocksEnabled = false;
-                DigOrDieGame.removeBlock();
+                DigOrDieGame.removeBadrock();
                 timerStartDigOrDie();
                 Bukkit.getScheduler().cancelTask(timerIdDOD);
             }

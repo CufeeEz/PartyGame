@@ -5,6 +5,8 @@ import my.cufee.partygame.Games.Labyrinth.LabyrinthGame;
 
 import java.util.Random;
 
+import static my.cufee.partygame.Games.Parkour.ParkourGame.startParkour;
+
 
 public class GameRoll {
     //1 - GoldRush

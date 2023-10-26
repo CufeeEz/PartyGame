@@ -1,22 +1,12 @@
 package my.cufee.partygame.Games.DigOrDie;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.session.ClipboardHolder;
-import com.sk89q.worldedit.world.World;
 import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.Games.PlayersArray;
-import my.cufee.partygame.MainLocation.SpawnLocation;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.math.BlockVector3;
-import my.cufee.partygame.Util.AllEvent;
 import my.cufee.partygame.Util.TimerUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -24,20 +14,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import java.awt.datatransfer.Clipboard;
-import java.io.File;
-import java.sql.Time;
-
-import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locSpawnDigOrDie;
+import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locBedrockDigOrDie;
+import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.setBedrockLocation;
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
-import static my.cufee.partygame.Util.TeleportPlayers.teleportInMoreLoc;
 
 
 public class DigOrDieGame {
+    static Random random = new Random();
+    static List<Material> blockTypes = new ArrayList<>();
     public static void startDigOrDie() {
+        setBedrockLocation();
+        blockTypes.add(Material.DIRT); // земля
+        blockTypes.add(Material.STONE); // камень
+        blockTypes.add(Material.WHITE_WOOL); // белая шерсть
+        blockTypes.add(Material.OAK_LOG); // бревно дуба
+        setBlocks();
         TimerUtil.timeStartDOD();
     }
 
@@ -76,7 +72,7 @@ public class DigOrDieGame {
         metaPickaxe.setDisplayName("Железная камнерезка");
         metaAxe.setDisplayName("Железная дубоснеоска");
         metaShovel.setDisplayName("Железная землеройка");
-        metaShovel.setDisplayName("Ножницы маникюрные");
+        metaShears.setDisplayName("Ножницы маникюрные");
 
         pickaxe.setItemMeta(metaPickaxe);
         axe.setItemMeta(metaAxe);
@@ -91,15 +87,25 @@ public class DigOrDieGame {
         }
 
     }
-    public static void removeBlock(){
+    public static void removeBadrock(){
         ParkourLocartion.setParkourLocationBlock();
-        for(int i = 0; i < DigOrDieLocation.locBedrockDigOrDie.length;i++){
-            DigOrDieLocation.locBedrockDigOrDie[i].getBlock().setType(Material.AIR);
+        for(int i = 0; i < locBedrockDigOrDie.length;i++){
+            locBedrockDigOrDie[i].getBlock().setType(Material.AIR);
         }
     }
     public static void givePoitonEffectRegeneration(){
         for(Player player : PlayersArray.playersOnGame){
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300*20, 10, false, false));
+        }
+    }
+    public static void setBlocks(){
+        for(int ii = 0; ii < locBedrockDigOrDie.length; ii++){
+            Location blockLocation = locBedrockDigOrDie[ii];
+            for(int i = 60; i > 17; i ++){
+                blockLocation.setY(i);
+                Material randomBlockType = blockTypes.get(random.nextInt(5));
+                blockLocation.getBlock().setType(randomBlockType);
+            }
         }
     }
 }
