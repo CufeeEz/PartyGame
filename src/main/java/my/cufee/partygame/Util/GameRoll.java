@@ -1,11 +1,10 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
-import my.cufee.partygame.Games.Labyrinth.LabyrinthGame;
+import my.cufee.partygame.Games.PlayersScore;
 
 import java.util.Random;
 
-import static my.cufee.partygame.Games.Parkour.ParkourGame.startParkour;
 
 
 public class GameRoll {
@@ -18,6 +17,7 @@ public class GameRoll {
         return randomNumber;
     }
     public static void beginGame(){
+        PlayersScore.CountPoint = 5;
         int num = rollGame();
         switch (num){
             //case 1: LabyrinthGame.startLabyrinth(); break;
@@ -27,7 +27,7 @@ public class GameRoll {
             //case 1:
                 //timeStartgr();
                 //break;
-            case 1: DigOrDieGame.startDigOrDie();break;
+            //case 1: DigOrDieGame.startDigOrDie();break;
             //case 1:startParkour(); break;
         }
     }

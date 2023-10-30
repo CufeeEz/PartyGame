@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -98,6 +99,7 @@ public class AllEvent implements Listener {
     }
 
     public static boolean DODTuch;
+    int playerFinishedDOD;
     @EventHandler
     public void playerTouchBlockDOD(PlayerInteractEvent event){
 
@@ -105,13 +107,31 @@ public class AllEvent implements Listener {
         if(DODTuch){
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 if (event.getClickedBlock().getType().equals(Material.SCULK_SENSOR)){
+                    playerFinishedDOD +=1;
                     PlayersScore.setPoint(player);
                     player.teleport(SpawnLocation.getLocHub());
+                    PlayerUtil.clearOnePlayer(player);
+                    if(playerFinishedDOD == GameManager.CreatePlayersCount){
+                        Bukkit.getScheduler().cancelTask(TimerUtil.timerIDStartDigOrDie);
+                        GameRoll.beginGame();
+                        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша!");
+                    }
                 }
             }
         }
     }
-
+    public static boolean DODBlockPlace;
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        if(DODBlockPlace){
+            Player player = event.getPlayer();
+            for (int i = 0; i < playersOnGame.length; i++) {
+                if (player.equals(playersOnGame[i])) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
 
     // EVENTS PARKOUR
     public static boolean ParkourTuchEvent;
@@ -129,7 +149,7 @@ public class AllEvent implements Listener {
     }
     // EVENTS LABYRINTH
     public static boolean labyrinthTuchEvent;
-    int playerFinished = 1;
+    int playerFinished;
     @EventHandler
     public void playerTouchBlockLabyrinth(PlayerInteractEvent event){
         Player player = event.getPlayer();
@@ -149,7 +169,8 @@ public class AllEvent implements Listener {
                             PlayerUtil.clearPlayers();
                             ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша, "
                                     + LabyrinthGame.spectator.getName() + " получает " + playerFinished + " очков!");
-                            //GameRoll.beginGame();
+                            playerFinished = 0;
+                            GameRoll.beginGame();
                         }
                     }
                 }

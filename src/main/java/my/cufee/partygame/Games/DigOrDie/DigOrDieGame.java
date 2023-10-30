@@ -1,12 +1,10 @@
 package my.cufee.partygame.Games.DigOrDie;
 
-import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.Games.PlayersArray;
 import my.cufee.partygame.Util.TimerUtil;
 import org.bukkit.Color;
-import org.bukkit.Location;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -15,25 +13,15 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.locBedrockDigOrDie;
-import static my.cufee.partygame.Games.DigOrDie.DigOrDieLocation.setBedrockLocation;
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
 
 
 public class DigOrDieGame {
-    static Random random = new Random();
-    static List<Material> blockTypes = new ArrayList<>();
     public static void startDigOrDie() {
-        setBedrockLocation();
-        blockTypes.add(Material.DIRT); // земля
-        blockTypes.add(Material.STONE); // камень
-        blockTypes.add(Material.WHITE_WOOL); // белая шерсть
-        blockTypes.add(Material.OAK_LOG); // бревно дуба
-        setBlocks();
+        DigOrDieLocation.setBedrockLocation();
+        DigOrDieEvent.setBlocks();
+        setBadrock();
         TimerUtil.timeStartDOD();
     }
 
@@ -80,6 +68,7 @@ public class DigOrDieGame {
         shears.setItemMeta(metaShears);
 
         for (Player player : playersOnGame) {
+            player.setGameMode(GameMode.SURVIVAL);
             player.getInventory().addItem(pickaxe);
             player.getInventory().addItem(axe);
             player.getInventory().addItem(shovel);
@@ -88,9 +77,15 @@ public class DigOrDieGame {
 
     }
     public static void removeBadrock(){
-        ParkourLocartion.setParkourLocationBlock();
+        DigOrDieLocation.setBedrockLocation();
         for(int i = 0; i < locBedrockDigOrDie.length;i++){
             locBedrockDigOrDie[i].getBlock().setType(Material.AIR);
+        }
+    }
+    public static void setBadrock(){
+        DigOrDieLocation.setBedrockLocation();
+        for(int i = 0; i < locBedrockDigOrDie.length;i++){
+            locBedrockDigOrDie[i].getBlock().setType(Material.BEDROCK);
         }
     }
     public static void givePoitonEffectRegeneration(){
@@ -98,14 +93,5 @@ public class DigOrDieGame {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300*20, 10, false, false));
         }
     }
-    public static void setBlocks(){
-        for(int ii = 0; ii < locBedrockDigOrDie.length; ii++){
-            Location blockLocation = locBedrockDigOrDie[ii];
-            for(int i = 60; i > 17; i ++){
-                blockLocation.setY(i);
-                Material randomBlockType = blockTypes.get(random.nextInt(5));
-                blockLocation.getBlock().setType(randomBlockType);
-            }
-        }
-    }
+
 }

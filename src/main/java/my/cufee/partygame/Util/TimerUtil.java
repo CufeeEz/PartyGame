@@ -244,19 +244,16 @@ public class TimerUtil {
     static int timerStartDigOrDieGame;
 
     public static void timerStartDigOrDie() {
-        timerStartDigOrDieGame = 120;
+        timerStartDigOrDieGame = 60;
         timerIDStartDigOrDie = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartDigOrDieGame) {
-                case 100:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
-                    break;
-                case 60:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
-                    break;
-                case 40:
+                case 30:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
                     break;
                 case 20:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
+                    break;
+                case 10:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
                     break;
             }
@@ -266,10 +263,13 @@ public class TimerUtil {
                 GameRoll.beginGame();
                 TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
                 PlayerUtil.clearPlayers();
-                Bukkit.getScheduler().cancelTask(timerStartDigOrDieGame);
+                AllEvent.DODTuch = false;
+                AllEvent.DODBlockPlace = false;
+                AllEvent.breakBlocksEnabled = true;
+                Bukkit.getScheduler().cancelTask(timerIDStartDigOrDie);
             }
             timerStartDigOrDieGame--;
-        }, 0, 40).getTaskId();
+        }, 0, 20).getTaskId();
     }
     static int timerStartDOD;
     static int timerIdDOD;
@@ -283,7 +283,7 @@ public class TimerUtil {
                 giveArmor();
                 giveItemsDigOrDie();
                 givePoitonEffectRegeneration();
-                ChatBroadcastMessege.PlayerSendMessages(ChatColor.BLACK + "[=---Dig" + ChatColor.WHITE + " or "+ChatColor.DARK_RED + "Die---=]");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GRAY + "[=---Dig" + ChatColor.WHITE + " or "+ChatColor.DARK_RED + "Die---=]");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.WHITE + "В этой игре вам предстоит докопаться до низу");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.WHITE + "Побеждает тот, кто нажмет на скалк сенсор первый");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.RED + "УДАЧИ!");
@@ -293,6 +293,8 @@ public class TimerUtil {
                 AllEvent.breakBlocksEnabled = false;
                 DigOrDieGame.removeBadrock();
                 timerStartDigOrDie();
+                AllEvent.DODTuch = true;
+                AllEvent.DODBlockPlace = true;
                 Bukkit.getScheduler().cancelTask(timerIdDOD);
             }
             timerStartDOD--;
