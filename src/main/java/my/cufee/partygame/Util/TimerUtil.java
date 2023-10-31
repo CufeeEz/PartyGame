@@ -38,7 +38,26 @@ public class TimerUtil {
             }
         }, 0, 20).getTaskId();
     }
+    static int timerIdTimeOut;
+    static int timerTimeOut;
 
+    public static void timerTimeOut() {
+        timerTimeOut = 10;
+        TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+        PlayerUtil.clearPlayers();
+        timerIdTimeOut = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            switch (timerTimeOut) {
+                case 10:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Идет подбор следующей игры");
+                    break;
+                case 0:
+                    GameRoll.beginGame();
+                    Bukkit.getScheduler().cancelTask(timerIdTimeOut);
+                    break;
+            }
+            timerTimeOut--;
+        }, 0, 20).getTaskId();
+    }
     // таймеры голдраша
     static int timerIdGR;
     static int timerStartGR;
@@ -72,7 +91,7 @@ public class TimerUtil {
     static int timerStartGRgame;
 
     public static void timeStartgrGame() {
-        timerStartGRgame = 23; // 183
+        timerStartGRgame = 183; // 183
         timerIdGRgame = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartGRgame) {
                 case 183, 123:
@@ -108,27 +127,6 @@ public class TimerUtil {
                     break;
             }
             timerStartGRgame--;
-        }, 0, 20).getTaskId();
-    }
-
-    static int timerIdTimeOut;
-    static int timerTimeOut;
-
-    public static void timerTimeOut() {
-        timerTimeOut = 10;
-        TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
-        PlayerUtil.clearPlayers();
-        timerIdTimeOut = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
-            switch (timerTimeOut) {
-                case 10:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Идет подбор следующей игры");
-                    break;
-                case 0:
-                    GameRoll.beginGame();
-                    Bukkit.getScheduler().cancelTask(timerIdTimeOut);
-                    break;
-            }
-            timerTimeOut--;
         }, 0, 20).getTaskId();
     }
 
@@ -213,7 +211,7 @@ public class TimerUtil {
             if (timerLabyrinth >= 1 && timerLabyrinth <= 5) {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Игра закончится через " + timerParkour);
             } else if (timerLabyrinth == 0) {
-                GameRoll.beginGame();
+                TimerUtil.timerTimeOut();
                 TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
                 PlayerUtil.clearPlayers();
                 Bukkit.getScheduler().cancelTask(timerLabyrinth);
@@ -236,9 +234,10 @@ public class TimerUtil {
             if (timerStartDigOrDieGame >= 1 && timerStartDigOrDieGame <= 5) {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Игра закончится через " + timerStartDigOrDieGame);
             } else if (timerStartDigOrDieGame == 0) {
-                GameRoll.beginGame();
+                TimerUtil.timerTimeOut();
                 TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
                 PlayerUtil.clearPlayers();
+                AllEvent.digEnable = false;
                 AllEvent.DODTuch = false;
                 AllEvent.DODBlockPlace = false;
                 AllEvent.breakBlocksEnabled = true;
@@ -286,7 +285,7 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GRAY + "[=---Bedrock" + ChatColor.WHITE + "Box---=]");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "В этой игре вам предстоит найти среди грязи алмаз");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Побеждает тот, кто первый найдем алмазный блок");
-                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "удачи!");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Удачи!");
             } else if (timerInfoStartBRB > 0 && timerInfoStartBRB < 6) {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GREEN + "Начинайте копать через: " + timerInfoStartBRB);
             } else if (timerInfoStartBRB == 0) {
@@ -317,15 +316,16 @@ public class TimerUtil {
                     break;
             }
             if (timerStartBRB > 0 && timerStartBRB < 6) {
-                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры " + timerStartDOD);
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры " + timerStartBRB);
             }
             else if(timerStartBRB == 0){
+                AllEvent.playerFinishedBDB = 0;
                 PlayerUtil.clearPlayers();
                 AllEvent.breakBlocksEnabled = true;
                 AllEvent.bedrockTuchEvent = false;
                 AllEvent.breakEnableBedrockBox = false;
                 TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
-                GameRoll.rollGame();
+                TimerUtil.timerTimeOut();
                 Bukkit.getScheduler().cancelTask(timerIdBRB);
             }
             timerStartBRB--;

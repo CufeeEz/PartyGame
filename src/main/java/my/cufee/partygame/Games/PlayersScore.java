@@ -56,7 +56,9 @@ public class PlayersScore {
         for(int i = 0; i < playersOnGame.length; i++) {
             if (player.equals(playersOnGame[i])) {
                 ScoreGoldRush[i] += 1;
-                Bukkit.broadcastMessage(player.getName()+ " "+ ScoreGoldRush[i]);
+                if(ScoreGoldRush[i] % 5 == 0){
+                    ChatBroadcastMessege.PlayerSendMessages(playersOnGame[i] + " добыл " + ScoreGoldRush[i] + " золота!");
+                }
             }
         }
     }
@@ -106,5 +108,11 @@ public class PlayersScore {
             Score[i] += 1;
         }
         Bukkit.broadcastMessage(playersOnGame[i].getName() + " " +  Score[i]);
+    }
+    public static void viewScorePlayer(){
+        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "[=---Таблиц очков---=]");
+        for (int i = 0; i < playersOnGame.length; i++) {
+            ChatBroadcastMessege.PlayerSendMessages(i + ". " + playersOnGame[i].getName() + " - " + ChatColor.GOLD + Score[i] + " очков");
+        }
     }
 }

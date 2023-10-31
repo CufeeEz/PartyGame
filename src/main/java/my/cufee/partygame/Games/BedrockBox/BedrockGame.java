@@ -1,6 +1,5 @@
 package my.cufee.partygame.Games.BedrockBox;
 
-import my.cufee.partygame.Games.Parkour.ParkourLocartion;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.Util.TeleportPlayers;
 import my.cufee.partygame.Util.TimerUtil;
@@ -37,16 +36,17 @@ public class BedrockGame {
     }
 
     public static void givePoitonEffect(Player player){
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 300*20, 10, false, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300*20, 10, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 360*20, 10, false, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 360*20, 10, false, false));
     }
     public static ItemStack createShovel() {
-        ItemStack ironPickaxe = new ItemStack(Material.IRON_PICKAXE);
-        ItemMeta itemMeta = ironPickaxe.getItemMeta();
+        ItemStack shovel = new ItemStack(Material.DIAMOND_SHOVEL);
+        ItemMeta itemMeta = shovel.getItemMeta();
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addEnchant(Enchantment.DIG_SPEED, 5, true);
-        ironPickaxe.setItemMeta(itemMeta);
-        return ironPickaxe;
+        itemMeta.setUnbreakable(true);
+        shovel.setItemMeta(itemMeta);
+        return shovel;
     }
     public static void FillBox(){
         for (int x = -220; x >= -270; x--) {

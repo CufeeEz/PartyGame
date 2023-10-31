@@ -17,6 +17,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import static my.cufee.partygame.Games.Parkour.ParkourGame.countFinisedParkour;
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
 import static my.cufee.partygame.Util.TimerUtil.timerLabyrinth;
 
@@ -110,7 +111,7 @@ public class AllEvent implements Listener {
                     PlayerUtil.clearOnePlayer(player);
                     if(playerFinishedDOD == GameManager.CreatePlayersCount){
                         Bukkit.getScheduler().cancelTask(TimerUtil.timerIDStartDigOrDie);
-                        GameRoll.beginGame();
+                        TimerUtil.timerTimeOut();
                         ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша!");
                     }
                 }
@@ -139,6 +140,7 @@ public class AllEvent implements Listener {
             if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 if (event.getClickedBlock().getType().equals(Material.SEA_LANTERN)){
                     PlayersScore.setPoint(player);
+                    countFinisedParkour();
                     player.teleport(SpawnLocation.getLocHub());
                 }
             }
@@ -167,7 +169,7 @@ public class AllEvent implements Listener {
                             ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша, "
                                     + LabyrinthGame.spectator.getName() + " получает " + playerFinished + " очков!");
                             playerFinished = 0;
-                            GameRoll.beginGame();
+                            TimerUtil.timerTimeOut();
                         }
                     }
                 }
@@ -176,7 +178,7 @@ public class AllEvent implements Listener {
     }
     // EVENT BEDROCK BOX
     public static boolean bedrockTuchEvent;
-    int playerFinishedBDB;
+    static int playerFinishedBDB;
     @EventHandler
     public void playerTouchBlockBedrockBox(PlayerInteractEvent event){
         Player player = event.getPlayer();
@@ -188,13 +190,15 @@ public class AllEvent implements Listener {
                         PlayersScore.setPoint(player);
                         player.setGameMode(GameMode.SPECTATOR);
                         if(playerFinishedBDB == GameManager.CreatePlayersCount){
+                            AllEvent.playerFinishedBDB = 0;
+                            Bukkit.getScheduler().cancelTask(TimerUtil.timerIdBRB);
                             PlayerUtil.clearPlayers();
                             AllEvent.breakBlocksEnabled = true;
                             AllEvent.bedrockTuchEvent = false;
                             AllEvent.breakEnableBedrockBox = false;
                             TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
-                            GameRoll.rollGame();
                             ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Молодцы, все справились!");
+                            TimerUtil.timerTimeOut();
                             Bukkit.getScheduler().cancelTask(TimerUtil.timerIdBRB);
                         }
                     }

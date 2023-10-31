@@ -6,15 +6,15 @@ import my.cufee.partygame.Games.PlayersScore;
 
 import java.util.Random;
 
+import static my.cufee.partygame.Games.Parkour.ParkourGame.startParkour;
+import static my.cufee.partygame.Util.TimerUtil.timeStartgr;
 
 
 public class GameRoll {
-    //1 - GoldRush
-    //2 - DigOrDie
-    Random random = new Random();
     public static int rollGame(){
+        PlayersScore.viewScorePlayer();
         Random random = new Random();
-        int randomNumber = random.nextInt(1) + 1;
+        int randomNumber = random.nextInt(4) + 1;
         return randomNumber;
     }
     public static void beginGame(){
@@ -22,11 +22,10 @@ public class GameRoll {
         int num = rollGame();
         switch (num){
             //case 1: LabyrinthGame.startLabyrinth(); break;
-            //case 1: TimerUtil.timeStartParkour();break;
-            //case 1: timeStartgr();break;
-            //case 1: DigOrDieGame.startDigOrDie();break;
-            //case 1: startParkour(); break;
-            case 1: BedrockGame.startGame();break;
+            case 1: timeStartgr();break;
+            case 2: DigOrDieGame.startDigOrDie();break;
+            case 3: startParkour(); break;
+            case 4: BedrockGame.startGame();break;
         }
     }
 }
