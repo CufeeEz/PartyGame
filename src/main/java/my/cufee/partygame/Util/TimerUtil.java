@@ -1,5 +1,6 @@
 package my.cufee.partygame.Util;
 
+import my.cufee.partygame.Games.BedrockBox.BedrockGame;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieLocation;
 import my.cufee.partygame.Games.GoldRush.GoldRushEvents;
@@ -74,11 +75,7 @@ public class TimerUtil {
         timerStartGRgame = 23; // 183
         timerIdGRgame = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartGRgame) {
-                case 183:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось "
-                            + (int) (timerStartGRgame - 3) / 60 + " минуты");
-                    break;
-                case 123:
+                case 183, 123:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось "
                             + (int) (timerStartGRgame - 3) / 60 + " минуты");
                     break;
@@ -88,10 +85,7 @@ public class TimerUtil {
                 case 8:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + (timerStartGRgame - 3) + " секунд");
                     break;
-                case 6:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + (timerStartGRgame - 3) + " секунды");
-                    break;
-                case 5:
+                case 6, 5:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + (timerStartGRgame - 3) + " секунды");
                     break;
                 case 4:
@@ -179,13 +173,7 @@ public class TimerUtil {
                     AllEvent.ParkourTuchEvent = true;
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerParkour / 60 + " минут");
                     break;
-                case 240:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerParkour / 60 + " минуты");
-                    break;
-                case 180:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerParkour / 60 + " минуты");
-                    break;
-                case 120:
+                case 240, 120, 180:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerParkour / 60 + " минуты");
                     break;
                 case 60:
@@ -215,13 +203,7 @@ public class TimerUtil {
                 case 300:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth / 60 + " минут");
                     break;
-                case 240:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth / 60 + " минуты");
-                    break;
-                case 180:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth / 60 + " минуты");
-                    break;
-                case 120:
+                case 240, 180, 120:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerLabyrinth / 60 + " минуты");
                     break;
                 case 60:
@@ -247,13 +229,7 @@ public class TimerUtil {
         timerStartDigOrDieGame = 60;
         timerIDStartDigOrDie = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartDigOrDieGame) {
-                case 30:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
-                    break;
-                case 20:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
-                    break;
-                case 10:
+                case 30, 20, 10:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartDigOrDieGame + " секунд");
                     break;
             }
@@ -298,6 +274,61 @@ public class TimerUtil {
                 Bukkit.getScheduler().cancelTask(timerIdDOD);
             }
             timerStartDOD--;
+        }, 0, 20).getTaskId();
+    }
+    // BEDROCK BOX
+    static int timerInfoStartBRB;
+    static int timerInfoIdBRB;
+    public static void timeInfoStartBRB() {
+        timerInfoStartBRB = 10;
+        timerInfoIdBRB = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            if (timerInfoStartBRB == 10) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GRAY + "[=---Bedrock" + ChatColor.WHITE + "Box---=]");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "В этой игре вам предстоит найти среди грязи алмаз");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Побеждает тот, кто первый найдем алмазный блок");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "удачи!");
+            } else if (timerInfoStartBRB > 0 && timerInfoStartBRB < 6) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GREEN + "Начинайте копать через: " + timerInfoStartBRB);
+            } else if (timerInfoStartBRB == 0) {
+                timeStartBRB();
+                AllEvent.breakBlocksEnabled = false;
+                AllEvent.bedrockTuchEvent = true;
+                AllEvent.breakEnableBedrockBox = true;
+                BedrockGame.removeDoor();
+                Bukkit.getScheduler().cancelTask(timerInfoIdBRB);
+            }
+            timerInfoStartBRB--;
+        }, 0, 20).getTaskId();
+    }
+    static int timerStartBRB;
+    static int timerIdBRB;
+    public static void timeStartBRB() {
+        timerStartBRB = 300;
+        timerIdBRB = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            switch (timerStartBRB) {
+                case 300:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBRB / 60 + " минут");
+                    break;
+                case 240, 120, 180:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBRB / 60 + " минуты");
+                    break;
+                case 60:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBRB / 60 + " минута");
+                    break;
+            }
+            if (timerStartBRB > 0 && timerStartBRB < 6) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры " + timerStartDOD);
+            }
+            else if(timerStartBRB == 0){
+                PlayerUtil.clearPlayers();
+                AllEvent.breakBlocksEnabled = true;
+                AllEvent.bedrockTuchEvent = false;
+                AllEvent.breakEnableBedrockBox = false;
+                TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+                GameRoll.rollGame();
+                Bukkit.getScheduler().cancelTask(timerIdBRB);
+            }
+            timerStartBRB--;
         }, 0, 20).getTaskId();
     }
 }

@@ -18,5 +18,4 @@ public class ParkourLocartion {
         ParkourLocationBlock[8] = new Location(SpawnLocation.world, -105.0,63.0,-44.0);
         return ParkourLocationBlock;
     }
-    public static Location ParkourLocationFinish = new Location(SpawnLocation.getWorld(), -133.5, 61.0, -44.5);
 }

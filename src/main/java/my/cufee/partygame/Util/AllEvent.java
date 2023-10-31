@@ -6,10 +6,7 @@ import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
 import my.cufee.partygame.PartyGame;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -173,6 +170,49 @@ public class AllEvent implements Listener {
                             GameRoll.beginGame();
                         }
                     }
+                }
+            }
+        }
+    }
+    // EVENT BEDROCK BOX
+    public static boolean bedrockTuchEvent;
+    int playerFinishedBDB;
+    @EventHandler
+    public void playerTouchBlockBedrockBox(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        if(bedrockTuchEvent){
+            if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                if (event.getClickedBlock().getType().equals(Material.DIAMOND_BLOCK)){
+                    if(player.getGameMode() == GameMode.SURVIVAL){
+                        playerFinishedBDB +=1;
+                        PlayersScore.setPoint(player);
+                        player.setGameMode(GameMode.SPECTATOR);
+                        if(playerFinishedBDB == GameManager.CreatePlayersCount){
+                            PlayerUtil.clearPlayers();
+                            AllEvent.breakBlocksEnabled = true;
+                            AllEvent.bedrockTuchEvent = false;
+                            AllEvent.breakEnableBedrockBox = false;
+                            TeleportPlayers.teleportInOneLoc(SpawnLocation.getLocHub());
+                            GameRoll.rollGame();
+                            ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Молодцы, все справились!");
+                            Bukkit.getScheduler().cancelTask(TimerUtil.timerIdBRB);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public static boolean breakEnableBedrockBox;
+    @EventHandler
+    public void breakBedrockBox(BlockBreakEvent event) {
+        if (breakEnableBedrockBox) {
+            Player player = event.getPlayer();
+            for (int i = 0; i < playersOnGame.length; i++) {
+                if (player.equals(playersOnGame[i])) {
+                    if (event.getBlock().getType() == Material.DIRT) {
+                        return;
+                    }
+                    event.setCancelled(true);
                 }
             }
         }
