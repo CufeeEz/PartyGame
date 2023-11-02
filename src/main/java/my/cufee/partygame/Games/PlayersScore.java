@@ -1,8 +1,8 @@
 package my.cufee.partygame.Games;
 
 import my.cufee.partygame.CMD.GameManager;
+import my.cufee.partygame.Games.BowBattle.BowBattleGame;
 import my.cufee.partygame.Util.ChatBroadcastMessege;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -57,7 +57,8 @@ public class PlayersScore {
             if (player.equals(playersOnGame[i])) {
                 ScoreGoldRush[i] += 1;
                 if(ScoreGoldRush[i] % 5 == 0){
-                    ChatBroadcastMessege.PlayerSendMessages(playersOnGame[i] + " добыл " + ScoreGoldRush[i] + " золота!");
+                    ChatBroadcastMessege.PlayerSendMessages(playersOnGame[i].getName() + " добыл "
+                            + ScoreGoldRush[i] + " золота!");
                 }
             }
         }
@@ -107,12 +108,22 @@ public class PlayersScore {
                     + " получил " + setPointGR + " очко и добыл " + count + " золота!");
             Score[i] += 1;
         }
-        Bukkit.broadcastMessage(playersOnGame[i].getName() + " " +  Score[i]);
     }
     public static void viewScorePlayer(){
         ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "[=---Таблиц очков---=]");
         for (int i = 0; i < playersOnGame.length; i++) {
-            ChatBroadcastMessege.PlayerSendMessages(i + ". " + playersOnGame[i].getName() + " - " + ChatColor.GOLD + Score[i] + " очков");
+            ChatBroadcastMessege.PlayerSendMessages(i+1 + ". " + ChatColor.GREEN + playersOnGame[i].getName()
+                    + ChatColor.RESET+ " - " + ChatColor.GRAY + Score[i] + " очков");
+        }
+    }
+    // BOW BATTLE
+    public static void setPointBowBattle(){
+        int deathCount = 0;
+        for(int i = 0; i < BowBattleGame.arrayDeathPlayers.length; i++){
+            if(BowBattleGame.arrayDeathPlayers[i]){
+                deathCount += 1;
+            }
+
         }
     }
 }

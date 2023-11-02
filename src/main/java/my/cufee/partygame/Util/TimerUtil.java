@@ -1,6 +1,7 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.Games.BedrockBox.BedrockGame;
+import my.cufee.partygame.Games.BowBattle.BowBattleGame;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieGame;
 import my.cufee.partygame.Games.DigOrDie.DigOrDieLocation;
 import my.cufee.partygame.Games.GoldRush.GoldRushEvents;
@@ -48,6 +49,7 @@ public class TimerUtil {
         timerIdTimeOut = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerTimeOut) {
                 case 10:
+                    PlayersScore.viewScorePlayer();
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Идет подбор следующей игры");
                     break;
                 case 0:
@@ -224,6 +226,7 @@ public class TimerUtil {
     static int timerStartDigOrDieGame;
 
     public static void timerStartDigOrDie() {
+        AllEvent.playerFinishedDOD = 0;
         timerStartDigOrDieGame = 60;
         timerIDStartDigOrDie = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartDigOrDieGame) {
@@ -329,6 +332,50 @@ public class TimerUtil {
                 Bukkit.getScheduler().cancelTask(timerIdBRB);
             }
             timerStartBRB--;
+        }, 0, 20).getTaskId();
+    }
+    // bowbattle
+
+    static int timerInfoStartBowBattle;
+    static int timerInfoIdBowBattle;
+    public static void timeInfoStartBowBattle() {
+        timerInfoStartBowBattle = 10;
+        timerInfoIdBowBattle = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            if (timerInfoStartBowBattle == 10) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GRAY + "[=---Bow" + ChatColor.WHITE + "Battle---=]");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "В этой игре вам предстоит скинут соперников");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Побеждает тот, кто последний останется в живых");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Удачи!");
+            } else if (timerInfoStartBowBattle > 0 && timerInfoStartBowBattle < 6) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GREEN + "Игра начнется через: " + timerInfoStartBowBattle);
+            } else if (timerInfoStartBowBattle == 0) {
+                BowBattleGame.openSpawnBox();
+                Bukkit.getScheduler().cancelTask(timerInfoIdBowBattle);
+            }
+            timerInfoStartBowBattle--;
+        }, 0, 20).getTaskId();
+    }
+    static int timerStartBowBattle;
+    static int timerIdBowBattle;
+    public static void timeStartBowBattle() {
+        timerStartBowBattle = 180;
+        timerIdBowBattle = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
+            switch (timerStartBowBattle) {
+                case 180, 120:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBowBattle / 60 + " минуты");
+                    break;
+                case 60:
+                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBowBattle / 60 + " минута");
+                    break;
+            }
+            if (timerStartBowBattle > 0 && timerStartBowBattle < 6) {
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры " + timerStartBowBattle);
+            }
+            else if(timerStartBowBattle == 0){
+                TimerUtil.timerTimeOut();
+                Bukkit.getScheduler().cancelTask(timerIdBowBattle);
+            }
+            timerStartBowBattle--;
         }, 0, 20).getTaskId();
     }
 }

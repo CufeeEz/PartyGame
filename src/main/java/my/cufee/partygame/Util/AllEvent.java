@@ -15,6 +15,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import static my.cufee.partygame.Games.Parkour.ParkourGame.countFinisedParkour;
@@ -50,7 +51,6 @@ public class AllEvent implements Listener {
                         return;
                     }
                     event.setCancelled(true);
-                    event.getPlayer().sendMessage("Вы можете ломать только золотую руду.");
                 }
             }
         }
@@ -90,14 +90,13 @@ public class AllEvent implements Listener {
                         return;
                     }
                     event.setCancelled(true);
-                    event.getPlayer().sendMessage(ChatColor.DARK_RED + "КОПАЙ ПОД СЕБЯ!");
                 }
             }
         }
     }
 
     public static boolean DODTuch;
-    int playerFinishedDOD;
+    static int playerFinishedDOD;
     @EventHandler
     public void playerTouchBlockDOD(PlayerInteractEvent event){
 
@@ -113,6 +112,10 @@ public class AllEvent implements Listener {
                         Bukkit.getScheduler().cancelTask(TimerUtil.timerIDStartDigOrDie);
                         TimerUtil.timerTimeOut();
                         ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Все игроки добрались до финиша!");
+                        AllEvent.digEnable = false;
+                        AllEvent.DODTuch = false;
+                        AllEvent.DODBlockPlace = false;
+                        AllEvent.breakBlocksEnabled = true;
                     }
                 }
             }
@@ -217,6 +220,21 @@ public class AllEvent implements Listener {
                         return;
                     }
                     event.setCancelled(true);
+                }
+            }
+        }
+    }
+    // EVENT BOWBATTLE BOX
+    public static boolean deathEventBowBattle;
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (deathEventBowBattle) {
+            Player player = event.getEntity();
+            for (int i = 0; i < playersOnGame.length; i++) {
+                if (player.equals(playersOnGame[i])) {
+                    if(player.getGameMode() == GameMode.SURVIVAL){
+
+                    }
                 }
             }
         }
