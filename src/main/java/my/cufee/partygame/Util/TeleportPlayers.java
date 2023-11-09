@@ -22,6 +22,5 @@ public class TeleportPlayers {
         for (int i = 0; i < playersOnGame.length; i++) {
             playersOnGame[i].teleport(randomLocationList.get(i));
         }
-        GameRoll.beginGame();
     }
 }

@@ -1,6 +1,8 @@
 package my.cufee.partygame.Util;
 
 import my.cufee.partygame.CMD.GameManager;
+import my.cufee.partygame.Games.BowBattle.BowBattleGame;
+import my.cufee.partygame.Games.BowBattle.BowBattleLocation;
 import my.cufee.partygame.Games.Labyrinth.LabyrinthGame;
 import my.cufee.partygame.Games.PlayersScore;
 import my.cufee.partygame.MainLocation.SpawnLocation;
@@ -17,6 +19,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import static my.cufee.partygame.Games.Parkour.ParkourGame.countFinisedParkour;
 import static my.cufee.partygame.Games.PlayersArray.playersOnGame;
@@ -233,9 +236,39 @@ public class AllEvent implements Listener {
             for (int i = 0; i < playersOnGame.length; i++) {
                 if (player.equals(playersOnGame[i])) {
                     if(player.getGameMode() == GameMode.SURVIVAL){
-
+                        PlayersScore.setPointBowBattle(i, false);
+                        BowBattleGame.countDeathPlayers(player);
                     }
                 }
+            }
+        }
+    }
+    public static boolean bowBattleTuchEvent;
+    @EventHandler
+    public void playerTouchBlockBowBattle(PlayerInteractEvent event){
+        Player player = event.getPlayer();
+        if(bowBattleTuchEvent){
+            if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                if (event.getClickedBlock().getType().equals(Material.MAGMA_BLOCK)){
+                    for (int i = 0; i < playersOnGame.length; i++) {
+                        if (player.equals(playersOnGame[i])) {
+                            if(player.getGameMode() == GameMode.SURVIVAL){
+                                PlayersScore.setPointBowBattle(i, true);
+                                player.teleport(BowBattleLocation.locSpawnBowBattle[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public static boolean bowBattleRespawn;
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if(bowBattleRespawn){
+            Player player = event.getPlayer();
+            if(player.getGameMode() == GameMode.SURVIVAL){
+                BowBattleGame.respawnPlayer(player);
             }
         }
     }

@@ -15,7 +15,7 @@ import static my.cufee.partygame.Util.TimerUtil.timeStartgr;
 public class GameRoll {
     public static int rollGame(){
         Random random = new Random();
-        int randomNumber = random.nextInt(4) + 1;
+        int randomNumber = random.nextInt(1) + 1;
         return randomNumber;
     }
     public static void beginGame(){

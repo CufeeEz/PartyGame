@@ -3,6 +3,7 @@ package my.cufee.partygame.Games;
 import my.cufee.partygame.CMD.GameManager;
 import my.cufee.partygame.Games.BowBattle.BowBattleGame;
 import my.cufee.partygame.Util.ChatBroadcastMessege;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -110,20 +111,21 @@ public class PlayersScore {
         }
     }
     public static void viewScorePlayer(){
-        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "[=---Таблиц очков---=]");
+        ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "[=---Таблица очков---=]");
         for (int i = 0; i < playersOnGame.length; i++) {
             ChatBroadcastMessege.PlayerSendMessages(i+1 + ". " + ChatColor.GREEN + playersOnGame[i].getName()
                     + ChatColor.RESET+ " - " + ChatColor.GRAY + Score[i] + " очков");
         }
     }
     // BOW BATTLE
-    public static void setPointBowBattle(){
-        int deathCount = 0;
-        for(int i = 0; i < BowBattleGame.arrayDeathPlayers.length; i++){
-            if(BowBattleGame.arrayDeathPlayers[i]){
-                deathCount += 1;
-            }
-
+    public static void setPointBowBattle(int index, boolean operator){
+        if(!operator){
+            Score[index] -= 1;
+            Bukkit.broadcastMessage(playersOnGame[index].getName() + " -1 очко");
+        }
+        else {
+            Score[index] += 1;
+            Bukkit.broadcastMessage(playersOnGame[index].getName() + " +1 очко");
         }
     }
 }

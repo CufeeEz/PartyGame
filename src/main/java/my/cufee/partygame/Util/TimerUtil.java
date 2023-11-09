@@ -344,26 +344,28 @@ public class TimerUtil {
             if (timerInfoStartBowBattle == 10) {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GRAY + "[=---Bow" + ChatColor.WHITE + "Battle---=]");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "В этой игре вам предстоит скинут соперников");
-                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "Побеждает тот, кто последний останется в живых");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "За каждое нажатие по магма-блоку дается 1 очко");
+                ChatBroadcastMessege.PlayerSendMessages(ChatColor.YELLOW + "За смерть у вас заберут 1 очко");
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "Удачи!");
             } else if (timerInfoStartBowBattle > 0 && timerInfoStartBowBattle < 6) {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.DARK_GREEN + "Игра начнется через: " + timerInfoStartBowBattle);
             } else if (timerInfoStartBowBattle == 0) {
+                AllEvent.deathEventBowBattle = true;
+                AllEvent.bowBattleTuchEvent = true;
+                AllEvent.bowBattleRespawn = true;
                 BowBattleGame.openSpawnBox();
+                timeStartBowBattle();
                 Bukkit.getScheduler().cancelTask(timerInfoIdBowBattle);
             }
             timerInfoStartBowBattle--;
         }, 0, 20).getTaskId();
     }
     static int timerStartBowBattle;
-    static int timerIdBowBattle;
+    public static int timerIdBowBattle;
     public static void timeStartBowBattle() {
-        timerStartBowBattle = 180;
+        timerStartBowBattle = 60;
         timerIdBowBattle = Bukkit.getScheduler().runTaskTimer(PartyGame.getInstance(), () -> {
             switch (timerStartBowBattle) {
-                case 180, 120:
-                    ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBowBattle / 60 + " минуты");
-                    break;
                 case 60:
                     ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры осталось " + timerStartBowBattle / 60 + " минута");
                     break;
@@ -372,8 +374,7 @@ public class TimerUtil {
                 ChatBroadcastMessege.PlayerSendMessages(ChatColor.GREEN + "До конца игры " + timerStartBowBattle);
             }
             else if(timerStartBowBattle == 0){
-                TimerUtil.timerTimeOut();
-                Bukkit.getScheduler().cancelTask(timerIdBowBattle);
+                BowBattleGame.endBowBattle();
             }
             timerStartBowBattle--;
         }, 0, 20).getTaskId();
